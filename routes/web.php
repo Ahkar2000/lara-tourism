@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InquiryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,10 +33,7 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::middleware(['auth:admin'])->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
-
-        /*
-        * Logout
-        */
         Route::post('logout/', [App\Http\Controllers\AuthAdmin\LoginController::class, 'logout'])->name('admin.logout');
+        Route::resource('/inquiries',InquiryController::class);
     });
 });
