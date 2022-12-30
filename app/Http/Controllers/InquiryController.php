@@ -15,7 +15,8 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        return view('admin.inquiries');
+        $inquiries = Inquiry::all();
+        return view('admin.inquiries',compact('inquiries'));
     }
 
     /**

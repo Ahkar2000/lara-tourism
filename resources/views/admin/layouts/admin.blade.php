@@ -12,7 +12,6 @@
     {{-- admin dashboard start --}}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="{{ url('dashboard/img/icons/icon-48x48.png') }}" />
-    <link href="{{ url('dashboard/css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     {{-- admin dashboard end--}}
 
@@ -21,9 +20,11 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    @yield('link')
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
+    <link href="{{ url('dashboard/css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div class="wrapper">
@@ -37,6 +38,8 @@
         </div>
     </div>
 
+    @stack('script')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/ju/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
     <script src="{{ url('dashboard/js/app.js') }}"></script>
 
     <script>
