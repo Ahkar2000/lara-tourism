@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inquiry;
 use App\Http\Requests\StoreInquiryRequest;
 use App\Http\Requests\UpdateInquiryRequest;
+use Illuminate\Support\Facades\Request;
 
 class InquiryController extends Controller
 {
@@ -15,7 +16,11 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        $inquiries = Inquiry::all();
+        $inquiries = Inquiry::when(request('search'),function($query){
+            $search = request('search');
+            $query->where('name','like',"%$search%")->orWhere('subject','like',"%$search%")->orWhere('message','like',"%$search%");
+        })
+        ->latest('id')->paginate(10)->withQueryString();
         return view('admin.inquiries',compact('inquiries'));
     }
 
@@ -48,7 +53,7 @@ class InquiryController extends Controller
      */
     public function show(Inquiry $inquiry)
     {
-        //
+        return response()->json($inquiry);
     }
 
     /**
@@ -82,6 +87,8 @@ class InquiryController extends Controller
      */
     public function destroy(Inquiry $inquiry)
     {
-        //
+        $inquiry->delete();
+        return to_route('inquiries.index')->with('message','An inquiry is deleted successfully.');
     }
+
 }

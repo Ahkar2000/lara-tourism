@@ -1,273 +1,100 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    {{-- admin dashboard start --}}
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{ url('dashboard/img/icons/icon-48x48.png') }}" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    {{-- admin dashboard end--}}
-
-    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    @yield('link')
-    <!-- Scripts -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
-    <link href="{{ url('dashboard/css/app.css') }}" rel="stylesheet">
-
+    <!-- theme meta -->
+    <meta name="theme-name" content="focus" />
+    <title>Focus Admin: Creative Admin Dashboard</title>
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <!-- Styles -->
+    <link href="{{ url('dashboard/css/lib/calendar2/pignose.calendar.min.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/lib/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('dashboard/css/lib/owl.theme.default.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('dashboard/css/lib/weather-icons.css') }}" rel="stylesheet" />
+    <link href="{{ url('dashboard/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ url('dashboard/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 </head>
+
 <body>
-    <div class="wrapper">
-        @include('admin.layouts.sidebar')
+    @include('admin.layouts.sidebar')
+    @include('admin.layouts.header')
+    @yield('content')
 
-        <div class="main">
-            @include('admin.layouts.header')
+    <!-- jquery vendor -->
+    <script src="{{ url('dashboard/js/lib/jquery.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/jquery.nanoscroller.min.js') }}"></script>
+    <!-- nano scroller -->
+    <script src="{{ url('dashboard/js/lib/menubar/sidebar.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/preloader/pace.min.js') }}"></script>
+    <!-- sidebar -->
 
-            @yield('content')
+    <script src="{{ url('dashboard/js/lib/bootstrap.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/scripts.js') }}"></script>
+    <!-- bootstrap -->
 
-        </div>
-    </div>
+    <script src="{{ url('dashboard/js/lib/calendar-2/moment.latest.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/calendar-2/pignose.calendar.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/calendar-2/pignose.init.js') }}"></script>
 
+
+    <script src="{{ url('dashboard/js/lib/weather/jquery.simpleWeather.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/weather/weather-init.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/circle-progress/circle-progress.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/circle-progress/circle-progress-init.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/chartist/chartist.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/sparklinechart/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/sparklinechart/sparkline.init.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url('dashboard/js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
+    <!-- scripit init-->
+    <script src="{{ url('dashboard/js/dashboard2.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script>
+        window.showToast = function(message){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: message
+    })
+    }
+    @if(session('message'))
+        showToast('{{ session('message') }}')
+    @endif
+    </script>
     @stack('script')
-    <script type="text/javascript" src="https://cdn.datatables.net/v/ju/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
-    <script src="{{ url('dashboard/js/app.js') }}"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-            // Line chart
-            new Chart(document.getElementById("chartjs-dashboard-line"), {
-                type: "line",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                        "Dec"
-                    ],
-                    datasets: [{
-                        label: "Sales ($)",
-                        fill: true,
-                        backgroundColor: gradient,
-                        borderColor: window.theme.primary,
-                        data: [
-                            2115,
-                            1562,
-                            1584,
-                            1892,
-                            1587,
-                            1923,
-                            2566,
-                            2448,
-                            2805,
-                            3438,
-                            2917,
-                            3327
-                        ]
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        intersect: false
-                    },
-                    hover: {
-                        intersect: true
-                    },
-                    plugins: {
-                        filler: {
-                            propagate: false
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            reverse: true,
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                stepSize: 1000
-                            },
-                            display: true,
-                            borderDash: [3, 3],
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }]
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Pie chart
-            new Chart(document.getElementById("chartjs-dashboard-pie"), {
-                type: "pie",
-                data: {
-                    labels: ["Chrome", "Firefox", "IE"],
-                    datasets: [{
-                        data: [4306, 3801, 1689],
-                        backgroundColor: [
-                            window.theme.primary,
-                            window.theme.warning,
-                            window.theme.danger
-                        ],
-                        borderWidth: 5
-                    }]
-                },
-                options: {
-                    responsive: !window.MSInputMethodContext,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    cutoutPercentage: 75
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Bar chart
-            new Chart(document.getElementById("chartjs-dashboard-bar"), {
-                type: "bar",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                        "Dec"
-                    ],
-                    datasets: [{
-                        label: "This year",
-                        backgroundColor: window.theme.primary,
-                        borderColor: window.theme.primary,
-                        hoverBackgroundColor: window.theme.primary,
-                        hoverBorderColor: window.theme.primary,
-                        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                        barPercentage: .75,
-                        categoryPercentage: .5
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        yAxes: [{
-                            gridLines: {
-                                display: false
-                            },
-                            stacked: false,
-                            ticks: {
-                                stepSize: 20
-                            }
-                        }],
-                        xAxes: [{
-                            stacked: false,
-                            gridLines: {
-                                color: "transparent"
-                            }
-                        }]
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var markers = [{
-                    coords: [31.230391, 121.473701],
-                    name: "Shanghai"
-                },
-                {
-                    coords: [28.704060, 77.102493],
-                    name: "Delhi"
-                },
-                {
-                    coords: [6.524379, 3.379206],
-                    name: "Lagos"
-                },
-                {
-                    coords: [35.689487, 139.691711],
-                    name: "Tokyo"
-                },
-                {
-                    coords: [23.129110, 113.264381],
-                    name: "Guangzhou"
-                },
-                {
-                    coords: [40.7127837, -74.0059413],
-                    name: "New York"
-                },
-                {
-                    coords: [34.052235, -118.243683],
-                    name: "Los Angeles"
-                },
-                {
-                    coords: [41.878113, -87.629799],
-                    name: "Chicago"
-                },
-                {
-                    coords: [51.507351, -0.127758],
-                    name: "London"
-                },
-                {
-                    coords: [40.416775, -3.703790],
-                    name: "Madrid "
-                }
-            ];
-            var map = new jsVectorMap({
-                map: "world",
-                selector: "#world_map",
-                zoomButtons: true,
-                markers: markers,
-                markerStyle: {
-                    initial: {
-                        r: 9,
-                        strokeWidth: 7,
-                        stokeOpacity: .4,
-                        fill: window.theme.primary
-                    },
-                    hover: {
-                        fill: window.theme.primary,
-                        stroke: window.theme.primary
-                    }
-                },
-                zoomOnScroll: false
-            });
-            window.addEventListener("resize", () => {
-                map.updateSize();
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-            var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-            document.getElementById("datetimepicker-dashboard").flatpickr({
-                inline: true,
-                prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-                nextArrow: "<span title=\"Next month\">&raquo;</span>",
-                defaultDate: defaultDate
-            });
-        });
-    </script>
-
 </body>
 
 </html>

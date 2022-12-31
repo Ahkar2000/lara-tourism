@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('inquiries', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->text('subject');
+            $table->text('message');
+            $table->enum('status',[1,0])->default(0);
             $table->timestamps();
         });
     }

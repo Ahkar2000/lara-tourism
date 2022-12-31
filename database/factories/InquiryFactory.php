@@ -17,7 +17,10 @@ class InquiryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->name,
+            'email' => fake()->email,
+            'subject' => fake()->text(20),
+            'message' => fake()->text(200)
         ];
     }
 }

@@ -1,101 +1,154 @@
 @extends('admin.layouts.admin')
 
 @section('content')
-    <main class="content">
-        <div class="container-fluid p-0">
-            <h3 class="fw-bold">Inquiries</h3>
-            <hr>
-            <div class="row mb-3">
-
-                <table id="myTable" class="table table-striped table-hover border rounded">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>DateTime</th>
-                            <th>From</th>
-                            <th>Subject</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($inquiries as $key=>$inquiry)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $inquiry->created_at }}</td>
-                                <td>{{ $inquiry->name }}</td>
-                                <td>{{ $inquiry->subject }}</td>
-                                <td>
-                                    @if ($inquiry->status == 1)
-                                        <span class="badge text-bg-success">Read</span>
-                                    @else
-                                        <span class="badge text-bg-info">Unread</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
-                                        data-bs-toggle="dropdown">
-                                        <i class="align-middle" data-feather="settings"></i>
-                                    </a>
-
-                                    <a class="nav-link dropdown-toggle d-none d-sm-inline-block border p-1 rounded"
-                                        href="#" data-bs-toggle="dropdown">
-                                        <span class="text-dark">Action</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                class="align-middle me-1 text-warning" data-feather="file"></i><span
-                                                class="align-middle">View</span></a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="pages-profile.html"><i
-                                                class="align-middle me-1 text-danger" data-feather="trash"></i><span
-                                                class="align-middle">Delete</span></a>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title pr d-flex justify-content-between">
+                                <h4>Inquiries</h4>
+                                <form action="{{ route('inquiries.index') }}" method="GET" class="d-inline-block">
+                                    <div class="d-flex ">
+                                        <div class="mb-3 ml-2">
+                                            <input type="text" placeholder="Search" class="form-control"
+                                                value="{{ request('search') }}" name="search">
+                                        </div>
+                                        <div class="">
+                                            <button class="btn border">
+                                                <i class="ti-search"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td>Three is no data.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="myTable" class="table table-striped table-hover border rounded">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>DateTime</th>
+                                                <th>From</th>
+                                                <th>Subject</th>
+                                                <th>Message</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($inquiries as $inquiry)
+                                                <tr>
+                                                    <td>{{ $inquiry->id }}</td>
+                                                    <td>{{ $inquiry->created_at }}</td>
+                                                    <td>{{ $inquiry->name }}</td>
+                                                    <td>{{ $inquiry->subject }}</td>
+                                                    <td>
+                                                        {{ Str::limit($inquiry->message,20) }}
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="btn border dropdown-toggle" href="#"
+                                                                role="button" data-toggle="dropdown" aria-expanded="false">
+                                                                Action
+                                                            </a>
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch demo modal
-                </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item view-inquiry"
+                                                                    data-id="{{ $inquiry->id }}" data-toggle="modal"
+                                                                    data-target="#staticBackdrop" form="makeread"
+                                                                    data-link="{{ route('inquiries.show', $inquiry->id) }}">
+                                                                    <i class="text-warning ti-file"></i> View</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <form action="{{ route('inquiries.destroy', $inquiry->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <button class="dropdown-item" id="idelete" type="submit"> <i
+                                                                            class="text-danger ti-trash"></i>
+                                                                        Delete</button>
+                                                                </form>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class=" modal-dialog modal-dialog-centered">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr >
+                                                    <td colspan="6" class="text-center">Three is no data.</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-3">
+                                    {{ $inquiries->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <h5 class="modal-title" id="staticBackdropLabel">Inquiry</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="modal-body">
-                                ...
+                                <p class="font-weight-bold">Inquirier : <span class="font-weight-normal"
+                                        id="iname"></span></p>
+                                <p class="font-weight-bold">Email : <span class="font-weight-normal" id="iemail"></span>
+                                </p>
+                                <p class="font-weight-bold">Subject : <span class="font-weight-normal"
+                                        id="isubject"></span></p>
+                                <p class="font-weight-bold">Message</p>
+                                <p class="font-weight-normal" id="imessage"></p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="submit" id="read-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </main>
+    </div>
 @endsection
 
 @push('script')
     <script type="module">
         $(document).ready(function() {
-            $('#myTable').DataTable();
+
+            $('#idelete').on("click",function(e){
+                e.preventDefault()
+                Swal.fire({
+                title: 'Are you sure to delete this inquiry?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent('form').trigger('submit')
+                }
+                })
+            })
+            
+            $('.view-inquiry').on("click",function (e) {  
+            let link = $(this).attr('data-link')
+            $.get(link,function(data){
+                $('#iname').html(data.name)
+                $('#iemail').html(data.email)
+                $('#isubject').html(data.subject)
+                $('#imessage').html(data.message)
+                })
+            })
         });
+        
     </script>
 @endpush
