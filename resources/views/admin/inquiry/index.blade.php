@@ -8,8 +8,8 @@
                 <section id="main-content">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-title pr d-flex justify-content-between">
-                                <h4>Inquiries</h4>
+                            <div class="card-title pr d-flex justify-content-between align-items-center">
+                                <h3 class=" font-weight-bold">Inquiries</h3>
                                 <form action="{{ route('inquiries.index') }}" method="GET" class="d-inline-block">
                                     <div class="d-flex ">
                                         <div class="mb-3 ml-2">
@@ -33,19 +33,23 @@
                                                 <th>DateTime</th>
                                                 <th>From</th>
                                                 <th>Subject</th>
-                                                <th>Message</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($inquiries as $inquiry)
+                                            @forelse ($inquiries as $key=>$inquiry)
                                                 <tr>
-                                                    <td>{{ $inquiry->id }}</td>
+                                                    <td>{{ $key+1 }}</td>
                                                     <td>{{ $inquiry->created_at }}</td>
                                                     <td>{{ $inquiry->name }}</td>
                                                     <td>{{ $inquiry->subject }}</td>
-                                                    <td>
-                                                        {{ Str::limit($inquiry->message,20) }}
+                                                    <td class="status">
+                                                        @if ($inquiry->status == 1)
+                                                            <span class="badge badge-success">Read</span>
+                                                        @else
+                                                            <span class="badge badge-info">Unread</span>
+                                                        @endif
                                                     <td>
                                                         <div class="dropdown">
                                                             <a class="btn border dropdown-toggle" href="#"
@@ -140,6 +144,7 @@
             })
             
             $('.view-inquiry').on("click",function (e) {  
+            $(this).closest('tr').find('.status').html('<span class="badge badge-success">Read</span>')
             let link = $(this).attr('data-link')
             $.get(link,function(data){
                 $('#iname').html(data.name)

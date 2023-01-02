@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +37,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('logout/', [App\Http\Controllers\AuthAdmin\LoginController::class, 'logout'])->name('admin.logout');
         Route::resource('/inquiries',InquiryController::class);
+        Route::resource('/packages', PackageController::class);
+        Route::resource('/photos', PhotoController::class);
     });
 });

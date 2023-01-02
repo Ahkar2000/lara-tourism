@@ -9,7 +9,7 @@
 
                 <li class="label">Pages</li>
                 <li class="{{ request()->is('admin/inquiries*') ? 'active' : '' }} mb-1"><a href="{{ route('inquiries.index') }}"><i class="ti-email"></i> Inquiries </a></li>
-                <li><a href="{{ route('admin.dashboard') }}"><i class="ti-user"></i> Admins & Users </a></li>
+                <li class="{{ request()->is('admin/packages*') ? 'active' : '' }} mb-1"><a href="{{ route('packages.index') }}"><i class="ti-package"></i> Packages </a></li>
             </ul>
         </div>
     </div>

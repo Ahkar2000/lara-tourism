@@ -3214,7 +3214,7 @@ tbody tr td:last-child {
   padding: 5px 15px;
   color: #ffffff;
 }
-.flot-container {
+.flot-container-img {
   box-sizing: border-box;
   width: 100%;
   height: 275px;
@@ -3222,7 +3222,7 @@ tbody tr td:last-child {
   margin: 15px auto 30px;
   background: transparent;
 }
-.flot-pie-container {
+.flot-pie-container-img {
   height: 275px;
 }
 .flotBar-container {
@@ -4511,4 +4511,36 @@ h6.h1 {
   .retina-logo {
     display: inline-block !important;
   }
+}
+
+.container-img {
+  position: relative;
+}
+
+.image-show {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle-img {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container-img:hover .image-show {
+  opacity: 0.3;
+}
+
+.container-img:hover .middle-img {
+  opacity: 1;
 }

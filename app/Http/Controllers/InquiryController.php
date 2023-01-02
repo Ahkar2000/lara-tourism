@@ -21,7 +21,7 @@ class InquiryController extends Controller
             $query->where('name','like',"%$search%")->orWhere('subject','like',"%$search%")->orWhere('message','like',"%$search%");
         })
         ->latest('id')->paginate(10)->withQueryString();
-        return view('admin.inquiries',compact('inquiries'));
+        return view('admin.inquiry.index',compact('inquiries'));
     }
 
     /**
@@ -53,6 +53,8 @@ class InquiryController extends Controller
      */
     public function show(Inquiry $inquiry)
     {
+        $inquiry->status = 1;
+        $inquiry->update();
         return response()->json($inquiry);
     }
 

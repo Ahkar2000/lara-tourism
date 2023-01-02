@@ -32,8 +32,8 @@
     <link href="{{ url('dashboard/css/lib/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url('dashboard/css/lib/helper.css') }}" rel="stylesheet">
     <link href="{{ url('dashboard/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -69,8 +69,8 @@
     <script src="{{ url('dashboard/js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
     <!-- scripit init-->
     <script src="{{ url('dashboard/js/dashboard2.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
     <script>
         window.showToast = function(message){
         const Toast = Swal.mixin({
