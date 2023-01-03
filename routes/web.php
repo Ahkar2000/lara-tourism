@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PhotoController;
@@ -39,5 +40,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::resource('/inquiries',InquiryController::class);
         Route::resource('/packages', PackageController::class);
         Route::resource('/photos', PhotoController::class);
+        Route::resource('/comments', CommentController::class);
+        Route::get('/comments/{package_id}/show', [CommentController::class, 'showRelatedComments'])->name('admin.showRelatedComments');
     });
 });

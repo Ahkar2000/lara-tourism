@@ -15,7 +15,12 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::when(request('search'),function($query){
+            $search = request('search');
+            $query->orWhere('comment','like',"%$search%");
+        })->with('user','package')
+        ->latest('id')->paginate(10)->withQueryString();
+        return view('admin.comment.index',compact('comments'));
     }
 
     /**
@@ -47,7 +52,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return response()->json($comment);
     }
 
     /**
@@ -81,6 +86,11 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        return to_route('comments.index')->with('message','Comment is deleted successfully.');
+    }
+    public function showRelatedComments($package_id){
+        $comments = Comment::where('package_id',$package_id)->latest('id')->with('user')->paginate(5);
+        return response()->json($comments);
     }
 }

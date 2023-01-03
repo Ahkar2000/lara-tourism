@@ -20,7 +20,7 @@ class PackageFactory extends Factory
             'name' => fake()->name(),
             'location' => fake()->address(),
             'price' => rand(1000,9000),
-            'description' => fake()->text(500)
+            'description' => fake()->text(1000)
         ];
     }
 }

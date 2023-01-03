@@ -9,8 +9,12 @@ use App\Models\Photo;
 class Package extends Model
 {
     use HasFactory;
+    
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }
