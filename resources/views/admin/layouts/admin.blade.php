@@ -68,7 +68,6 @@
     <script src="{{ url('dashboard/js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ url('dashboard/js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
     <!-- scripit init-->
-    <script src="{{ url('dashboard/js/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 
     <script>

@@ -107,7 +107,7 @@
                         <div class="border rounded p-3 mb-3">
                             <div class="d-flex align-items-center">
                                 <h5 class="font-weight-bold"><i class="ti-user mr-2"></i>${b.user.name}</h5>
-                                <small class="mb-1 ml-2">${b.created_at}</small>    
+                                <small class="mb-1 ml-2">${b.created_at.replace('T',' ').substr(0,19)}</small>    
                             </div>
                             <p class="mb-0">${b.comment}</p>
                         </div>
