@@ -76,12 +76,4 @@ class DashboardController extends Controller
         ->latest('id')->paginate(10)->withQueryString();
         return view('admin.user.index',compact('users'));
     }
-    public function create()
-    {
-        return view('admin.user.create');
-    }
-    public function userStore(Request $request)
-    {
-        return $request;
-    }
 }

@@ -11,9 +11,6 @@
                             <div class="card-title pr d-flex justify-content-between align-items-center">
                                 <h3 class=" font-weight-bold">Users</h3>
                                 <div>
-                                    <a class="btn btn-primary" href="{{ route('admin.users.create') }}">
-                                        <i class="ti-plus"></i>  Add User
-                                    </a>
                                     <form action="{{ route('admin.showUsers') }}" method="GET" class="d-inline-block">
                                         <div class="d-flex ">
                                             <div class="mb-3 ml-2">

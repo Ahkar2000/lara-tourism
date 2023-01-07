@@ -45,7 +45,5 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/comments/{package_id}/show', [CommentController::class, 'showRelatedComments'])->name('admin.showRelatedComments');
         Route::resource('/bookings', BookingController::class);
         Route::get('/users', [App\Http\Controllers\Admin\DashboardController::class, 'showUsers'])->name('admin.showUsers');
-        Route::get('users/create',[App\Http\Controllers\Admin\DashboardController::class, 'create'])->name('admin.users.create');
-        Route::post('users/save',[App\Http\Controllers\Admin\DashboardController::class, 'userStore'])->name('admin.users.save');
     });
 });
