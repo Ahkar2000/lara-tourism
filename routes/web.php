@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'welcomePage'])->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/inquiries', [InquiryController::class, 'store'])->name('store');
+Route::get('/packages/{id}', [PackageController::class, 'userShow'])->name('userShow');
 
 Route::group(['prefix' => 'admin'], function() {
 

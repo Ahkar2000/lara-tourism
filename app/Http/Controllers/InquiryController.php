@@ -31,7 +31,7 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -42,7 +42,18 @@ class InquiryController extends Controller
      */
     public function store(StoreInquiryRequest $request)
     {
-        //
+        $inquiry = new Inquiry();
+        $inquiry->name = $request->name;
+        $inquiry->email = $request->email;
+        $inquiry->subject = $request->subject;
+        $inquiry->message = $request->message;
+        $check = $inquiry->save();
+
+        if($check){
+            return "success";
+        }else{
+            return "fail";
+        }
     }
 
     /**

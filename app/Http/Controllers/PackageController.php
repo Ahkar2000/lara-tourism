@@ -66,7 +66,7 @@ class PackageController extends Controller
                 Storage::makeDirectory("public/1000");
                 $img->save("storage/1000/$newName");
 
-                $img->fit(500, 500);
+                $img->fit(500, 400);
 
                 Storage::makeDirectory("public/500");
                 $img->save("storage/500/$newName");
@@ -138,7 +138,7 @@ class PackageController extends Controller
                     Storage::makeDirectory("public/1000");
                     $img->save("storage/1000/$newName");
 
-                    $img->fit(500, 500);
+                    $img->fit(500, 400);
 
                     Storage::makeDirectory("public/500");
                     $img->save("storage/500/$newName");
@@ -171,5 +171,8 @@ class PackageController extends Controller
         Storage::delete($package->photos->map(fn ($photo) => "public/1000/" . $photo->name)->toArray());
         $package->delete();
         return to_route('packages.index')->with('message','Package is deleted successfully');
+    }
+    public function userShow(Package $package){
+        return view('package.show',compact('package'));
     }
 }

@@ -33,7 +33,7 @@
     <link href="{{ url('dashboard/css/lib/helper.css') }}" rel="stylesheet">
     <link href="{{ url('dashboard/css/style.css') }}" rel="stylesheet">
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url('userdashboard/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
 </head>
 
 <body>
@@ -89,8 +89,8 @@
         title: message
     })
     }
-    @if(session('message'))
-        showToast('{{ session('message') }}')
+    @if(session('status'))
+        showToast('{{ session('status') }}')
     @endif
     </script>
     @stack('script')
