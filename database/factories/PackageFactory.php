@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,10 @@ class PackageFactory extends Factory
      */
     public function definition()
     {
+        $name = fake()->name;
         return [
-            'name' => fake()->name(),
+            'name' => $name,
+            'slug' => Str::slug($name),
             'location' => fake()->address(),
             'price' => rand(1000,9000),
             'description' => fake()->text(1000)

@@ -27,7 +27,14 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/inquiries', [InquiryController::class, 'store'])->name('store');
-Route::get('/packages/{id}', [PackageController::class, 'userShow'])->name('userShow');
+Route::get('/packages/{package:slug}', [PackageController::class, 'userShow'])->name('userShow');
+Route::get('/comments/{package_id}/show', [CommentController::class, 'showRelatedComments'])->name('showRelatedComments');
+Route::get('/packages',[PackageController::class, 'showPackages'])->name('showPackages');
+
+Route::middleware('auth')->group(function(){
+    Route::post('/packages/comment', [CommentController::class, 'userComment'])->name('userComment');
+    Route::post('/bookings/userBook', [BookingController::class, 'userBook'])->name('userBook');
+});
 
 Route::group(['prefix' => 'admin'], function() {
 
@@ -44,7 +51,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::resource('/packages', PackageController::class);
         Route::resource('/photos', PhotoController::class);
         Route::resource('/comments', CommentController::class);
-        Route::get('/comments/{package_id}/show', [CommentController::class, 'showRelatedComments'])->name('admin.showRelatedComments');
         Route::resource('/bookings', BookingController::class);
         Route::get('/users', [App\Http\Controllers\Admin\DashboardController::class, 'showUsers'])->name('admin.showUsers');
     });

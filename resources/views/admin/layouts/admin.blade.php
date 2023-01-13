@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Focus Admin: Creative Admin Dashboard</title>
+    <title>Miki TSM</title>
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
     <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Photo;
 use App\Models\Package;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -52,6 +53,7 @@ class PackageController extends Controller
 
             $package = new Package();
             $package->name = $request->name;
+            $package->slug = Str::slug($request->name);
             $package->location = $request->location;
             $package->price = $request->price;
             $package->description = $request->description;
@@ -123,6 +125,7 @@ class PackageController extends Controller
             DB::beginTransaction();
 
             $package->name = $request->name;
+            $package->slug = Str::slug($request->name);
             $package->location = $request->location;
             $package->price = $request->price;
             $package->description = $request->description;
@@ -174,5 +177,9 @@ class PackageController extends Controller
     }
     public function userShow(Package $package){
         return view('package.show',compact('package'));
+    }
+    public function showPackages(){
+        $packages = Package::latest('id')->with('photos')->get();
+        return view('package.index',compact('packages'));
     }
 }

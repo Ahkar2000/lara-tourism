@@ -185,29 +185,15 @@
                     @foreach ($packages as $package)
                         <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="150">
                             <div class="box" style="padding: 0px;">
-                                <div id="carouselExample" class="carousel slide">
-                                  <div class="carousel-inner">
-                                    @foreach ($package->photos as $key=>$photo)
-                                    <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
-                                      <img src="{{ asset('storage/500/'.$photo->name) }}" class="d-block w-100">
-                                    </div>
-                                    @endforeach
-                                  </div>
-                                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                  </button>
-                                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                  </button>
+                                <div>
+                                    <img src="{{ asset('storage/500/'.$package->photos->first()->name) }}" class="w-100">
                                 </div>
                                 <h3 class="mx-2">{{ $package->name }}</h3>
-                                <p class="mx-4">
+                                <p class="mx-4 fst-italic">
                                     {{ Str::limit($package->description, 100, '...') }}
                                 </p>
                                 <div class="btn-wrap">
-                                    <a href="{{ route('userShow',$package->id) }}" class="btn-buy">View Package <i class="bi bi-arrow-right"></i></a>
+                                    <a href="{{ route('userShow',$package->slug) }}" class="btn-buy">View Package <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +201,7 @@
 
                 </div>
                 <div class="box text-end" style="background-color: #f9f9f9!important; box-shadow: none;">
-                    <a href="" class="btn-buy">Explore Packages <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('showPackages') }}" class="btn-buy">Explore Packages <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </section><!-- End Pricing Section -->

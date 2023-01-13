@@ -1030,7 +1030,7 @@ section {
 .pricing .box .btn-buy {
   background: #cc1616;
   display: inline-block;
-  padding: 10px 40px;
+  padding: 10px 15px;
   color: #fff;
   transition: none;
   font-size: 14px;
@@ -1038,6 +1038,30 @@ section {
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   transition: 0.3s;
+}
+
+.btn-custom1 {
+  background: #cc1616;
+  display: inline-block;
+  padding: 10px 15px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-custom2 {
+  background: #cc1616;
+  display: inline-block;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
 }
 
 .pricing .box .btn-buy:hover {
@@ -1227,6 +1251,11 @@ section {
 
 .contact .php-email-form textarea {
   padding: 12px 15px;
+}
+
+.border-warning{
+  border-color: #cc1616;
+  border: 5px solid;
 }
 
 .contact .php-email-form button[type=submit] {

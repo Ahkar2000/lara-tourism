@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Thet Phoo Wai Tourism</title>
+  <title>Miki TSM</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -24,6 +24,7 @@
   <link href="{{ url('userdashboard/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
   <link href="{{ url('userdashboard/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.css">
 
   <!-- Template Main CSS File -->
   <link href="{{ url('userdashboard/assets/css/style.css') }}" rel="stylesheet">
@@ -46,10 +47,35 @@
   <script src="{{ url('userdashboard/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
   <script src="{{ url('userdashboard/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
   <script src="{{ url('dashboard/js/lib/jquery.min.js') }}"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
   <!-- Template Main JS File -->
-  <script src="{{ url('userdashboard/assets/js/main.js') }}"></script>
+  <script type="text/javascript" src="{{ url('userdashboard/assets/js/main.js') }}"></script>
   @stack('script')
+  <script>
+    window.showToast = function(message){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: message
+    })
+    }
+    @if(session('message'))
+        showToast('{{ session('message') }}')
+    @endif
+    </script>
+  </script>
 </body>
 
 </html>

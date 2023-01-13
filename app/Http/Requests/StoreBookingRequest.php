@@ -13,7 +13,7 @@ class StoreBookingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'quantity' => 'required|numeric|min:1',
+            'schedule' => 'required|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
+            'package_id' => 'required|exists:packages,id'
         ];
     }
 }

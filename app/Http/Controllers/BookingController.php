@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 
@@ -104,5 +105,15 @@ class BookingController extends Controller
         $booking->delete();
         return back()->with('message','Booking is deleted successfully.');
     }
+    public function userBook(StoreBookingRequest $request)
+    {
+        $booking = new Booking();
+        $booking->user_id = Auth::id();
+        $booking->package_id = $request->package_id;
+        $booking->schedule = $request->schedule;
+        $booking->quantity = $request->quantity;
+        $booking->save();   
 
+        return "success";
+    }
 }

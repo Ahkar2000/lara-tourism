@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -41,7 +42,7 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        
     }
 
     /**
@@ -92,5 +93,15 @@ class CommentController extends Controller
     public function showRelatedComments($package_id){
         $comments = Comment::where('package_id',$package_id)->latest('id')->with('user')->paginate(5);
         return response()->json($comments);
+    }
+    public function userComment(StoreCommentRequest $request)
+    {
+        $comment = new Comment();
+        $comment->user_id = Auth::id();
+        $comment->comment = $request->comment;
+        $comment->package_id = $request->package_id;
+        $comment->save();
+        $username = Auth::user()->name;
+        return response()->json([$comment,$username]);
     }
 }
