@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrapFour();
+        Paginator::useBootstrapFive();
 
         View::composer('admin.dashboard',function ($view){
             $view->with([

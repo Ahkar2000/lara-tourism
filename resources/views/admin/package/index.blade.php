@@ -29,7 +29,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            {{-- <div class="card-body"> --}}
                                 <div class="table-responsive">
                                     <table id="myTable" class="table table-striped table-hover border rounded">
                                         <thead>

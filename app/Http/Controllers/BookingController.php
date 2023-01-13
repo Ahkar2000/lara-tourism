@@ -6,6 +6,7 @@ use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
@@ -115,5 +116,22 @@ class BookingController extends Controller
         $booking->save();   
 
         return "success";
+    }
+    public function bookUpdate(Request $request, $id)
+    {
+        $booking = Booking::find($id);
+        $request->validate([
+            'package_id' => 'required|exists:packages,id',
+            'quantity' => 'nullable|numeric',
+            'schedule' => 'nullable|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
+        ]);
+        if($request->has('quantity')){
+            $booking->quantity = $request->quantity;
+        }
+        if($request->has('schedule')){
+            $booking->schedule = $request->schedule;
+        }
+        $booking->update();
+        return back()->with('message','Your Booking is updated successfully.');
     }
 }
