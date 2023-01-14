@@ -132,6 +132,13 @@ class BookingController extends Controller
             $booking->schedule = $request->schedule;
         }
         $booking->update();
-        return back()->with('message','Your Booking is updated successfully.');
+        return response()->json($booking);
+    }
+
+    public function bookCancel($id){
+        $booking = Booking::find($id);
+        $booking->status = '3';
+        $booking->update();
+        return "success";
     }
 }

@@ -15,7 +15,7 @@ class PageController extends Controller
         return view('welcome',compact('packages'));
     }
     public function profile(){
-        $bookings = Booking::where('user_id',Auth::id())->with('package')->latest('id')->get();
+        $bookings = Booking::where('user_id',Auth::id())->with('package')->latest('id')->paginate(10);
         return view('profile.index',compact('bookings'));
     }
 }

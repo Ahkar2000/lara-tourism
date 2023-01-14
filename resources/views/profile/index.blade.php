@@ -33,22 +33,21 @@
                                                         <td>{{ $key + 1 }}</td>
                                                         <td>{{ $booking->created_at }}</td>
                                                         <td>{{ $booking->package->name }}</td>
-                                                        <td>{{ $booking->schedule }}</td>
-                                                        <td>{{ $booking->quantity }}</td>
-                                                        <td>
-                                                            @if ($booking->status == '0')
+                                                        <td class="sd">{{ $booking->schedule }}</td>
+                                                        <td class="qt">{{ $booking->quantity }}</td>
+                                                        <td class="status">
+                                                            @if ($booking->status == 0)
                                                                 <span class="badge rounded-0 text-bg-warning">Pending</span>
-                                                            @elseif ($booking->status == '1')
-                                                                <span
-                                                                    class="badge rounded-0 text-bg-success">Confirmed</span>
-                                                            @elseif ($booking->status == '2')
-                                                                <span class="badge rounded-0 text-bg-info">Done</span>
-                                                            @elseif ($booking->status == '3')
-                                                                <span
-                                                                    class="badge rounded-0 text-bg-danger">Cancelled</span>
+                                                            @elseif ($booking->status == 1)
+                                                                <span class="badge rounded-0 text-bg-info">Confirmed</span>
+                                                            @elseif ($booking->status == 2)
+                                                                <span class="badge rounded-0 text-bg-success">Done</span>
+                                                            @elseif ($booking->status == 3)
+                                                                <span class="badge rounded-0 text-bg-danger">Cancelled</span>
                                                             @endif
                                                         </td>
                                                         <td>
+                                                            @if ($booking->status == '0' || $booking->status == '1')
                                                             <div class="dropdown">
                                                                 <button class="btn btn-outline-secondary rounded-0 dropdown-toggle"
                                                                     type="button" data-bs-toggle="dropdown"
@@ -61,7 +60,7 @@
                                                                     <li>
                                                                         <hr class="dropdown-divider">
                                                                     </li>
-                                                                    <li><a class="dropdown-item" href="#">Cancel</a>
+                                                                    <li><a class="dropdown-item cancel-btn" href="{{ route('bookCancel',$booking->id) }}">Cancel</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -81,7 +80,7 @@
                                                                         <div class="modal-body">
                                                                             <form id="book-form{{$key}}"
                                                                                 action="{{ route('bookUpdate',$booking->id) }}"
-                                                                                method="POST">
+                                                                                method="POST" class="book">
                                                                                 @csrf
                                                                                 @method('put')
                                                                                 <input type="hidden" name="package_id"
@@ -90,7 +89,7 @@
                                                                                     <label class="form-label">Number of
                                                                                         People</label>
                                                                                     <input type="number" name="quantity"
-                                                                                        class="form-control" value="{{ $booking->quantity }}">
+                                                                                        class="form-control" id="qty" value="{{ $booking->quantity }}">
                                                                                 </div>
                                                                                 <div class="my-3">
                                                                                     <label class="form-label">Booking
@@ -108,11 +107,15 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="mt-3">
+                                            {{ $bookings->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +129,29 @@
 @push('script')
     <script>
         $(document).ready(function(){
-            $('#myTable').DataTable()
+            $('.cancel-btn').on('click',function(e){
+                $(this).closest('tr').find('.status').html(`<span class="badge rounded-0 text-bg-danger">Cancelled</span>`)
+                e.preventDefault()
+                let link = $(this).attr('href')
+                $.get(link,function(data){
+                    if(data == 'success'){
+                        showToast("Your Booking is cancelled successfully.")
+                    }
+                })
+            })
+
+            $('.book').on('submit',function(e){
+                e.preventDefault()
+                let input = $(this).serialize()
+                $.post($(this).attr('action'),input, function(data){
+                    $('.modal').modal('hide')
+                    $(this).closest('tr').find('.sd').html(data.schedule)
+                    $(this).closest('tr').find('.qt').html(data.quantity)
+                    $(this).children('#qty').val(data.quantity)
+                    $(this).children('#schedule').val(data.schedule)
+                    showToast("Your Booking is updated successfully.")
+                })
+            })
         })
     </script>
 @endpush

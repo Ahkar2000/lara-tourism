@@ -30,12 +30,13 @@ Route::post('/inquiries', [InquiryController::class, 'store'])->name('store');
 Route::get('/packages/{package:slug}', [PackageController::class, 'userShow'])->name('userShow');
 Route::get('/comments/{package_id}/show', [CommentController::class, 'showRelatedComments'])->name('showRelatedComments');
 Route::get('/packages',[PackageController::class, 'showPackages'])->name('showPackages');
-Route::get('/profile',[PageController::class, 'profile'])->name('profile');
 
 Route::middleware('auth')->group(function(){
+    Route::get('/profile',[PageController::class, 'profile'])->name('profile');
     Route::post('/packages/comment', [CommentController::class, 'userComment'])->name('userComment');
     Route::post('/bookings/userBook', [BookingController::class, 'userBook'])->name('userBook');
     Route::put('/bookings/{id}/bookUpdate', [BookingController::class, 'bookUpdate'])->name("bookUpdate");
+    Route::get('/bookings/{id}/bookCancel', [BookingController::class, 'bookCancel'])->name("bookCancel");
 });
 
 Route::group(['prefix' => 'admin'], function() {
