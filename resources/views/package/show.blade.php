@@ -40,7 +40,8 @@
                                         style="box-shadow: none;">
                                         <div class="btn-custom2"><i class="bi bi-tag-fill me-1"></i>{{ $package->price }}
                                         </div>
-                                        <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-custom1">Book Now</a>
+                                        <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            class="btn-custom1">Book Now</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
@@ -51,8 +52,8 @@
                                     <p class="">{{ $package->description }}</p>
                                 </div>
                                 <!-- Modal -->
-                                <div class="modal fade rounded-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade rounded-0" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content rounded-0">
                                             <div class="modal-header">
@@ -74,14 +75,15 @@
                                                     </div>
                                                     <hr>
                                                     @auth
-                                                    <div class="text-end mt-3">
-                                                        <button style="border: none!important;" class="btn-custom1">Book</button>
-                                                    </div>
+                                                        <div class="text-end mt-3">
+                                                            <button style="border: none!important;"
+                                                                class="btn-custom1">Book</button>
+                                                        </div>
                                                     @else
-                                                    <p>
-                                                        Please <a href="{{ route('login') }}">Login</a> or <a
-                                                            href="{{ route('register') }}">Register</a> to book.
-                                                    </p>
+                                                        <p>
+                                                            Please <a href="{{ route('login') }}">Login</a> or <a
+                                                                href="{{ route('register') }}">Register</a> to book.
+                                                        </p>
                                                     @endauth
                                                 </form>
                                             </div>
@@ -117,17 +119,17 @@
                                             <input type="hidden" name="package_id" value="{{ $package->id }}">
                                             <input type="text" class="form-control" id="content" name="comment"
                                                 placeholder="Say Something" aria-describedby="button-addon2">
-                                            <button style="border-radius: 0!important;" class="btn btn-danger send-btn" type="submit" id="button-addon2"
-                                                disabled="disabled">
+                                            <button style="border-radius: 0!important;" class="btn btn-danger send-btn"
+                                                type="submit" id="button-addon2" disabled="disabled">
                                                 <i class="bi bi-send"></i>
                                             </button>
                                         </div>
                                     </form>
                                 @else
-                                <p>
-                                    Please <a href="{{ route('login') }}">Login</a> or <a
-                                        href="{{ route('register') }}">Register</a> to comment.
-                                </p>
+                                    <p>
+                                        Please <a href="{{ route('login') }}">Login</a> or <a
+                                            href="{{ route('register') }}">Register</a> to comment.
+                                    </p>
                                 @endauth
                             </div>
                         </div>
@@ -140,24 +142,7 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            //booking ajax
-            $('#book-form').on('submit',function(e){
-                e.preventDefault()
-                let input = $(this).serialize()
-                $.post($(this).attr('action'),input,function(data){
-                    $('#book-form')[0].reset()
-                    $('.modal').modal('hide')
-                    if(data == 'success'){
-                        showToast('Your booking is sent successfully.')
-                    }else{
-                        alert('Something went wrong')
-                    }
-                    
-                })
-            })
-
-            //end
-
+            
             //comment button disable to empty input
             $('#button-addon2').prop('disabled', true);
 
@@ -167,11 +152,7 @@
             }
             $('#content').on('keyup', validateNextButton);
             //end
-
-            //venobox start
-            $('.venobox').venobox();
-            //venobox end
-
+            fetchData()
             //comment load start
             var page = 1;
 
@@ -182,10 +163,7 @@
                 loadMoreData(page);
 
             })
-
-            fetchData()
-            //comment load end
-
+            
             //comment ajax start
             $('#comment').on('submit', function(e) {
                 e.preventDefault()
@@ -213,26 +191,23 @@
                 })
             })
         });
-        //comment ajax end
 
-        //function for comment fetch
-        function fetchData() {
-            $.get('{{ route('showRelatedComments', $package->id) }}', function(d) {
-                $.each(d.data, function(a, b) {
-                    $('.comment-container').append(
-                        `
-                        <div class="border rounded-0 p-3 mb-3">
-                            <div class="d-flex align-items-center">
-                                <h5 class="fw-bold"><i class="ti-user mr-2"></i>${b.user.name}</h5>
-                                <small class="fw-lighter mb-1 ms-2">${b.created_at.replace('T',' ').substr(0,19)}</small>    
-                            </div>
-                            <small class="mb-0">${b.comment}</small>
-                        </div>
-                        `
-                    )
-                })
+        //booking ajax
+        $('#book-form').on('submit', function(e) {
+            e.preventDefault()
+            let input = $(this).serialize()
+            $.post($(this).attr('action'), input, function(data) {
+                $('#book-form')[0].reset()
+                $('.modal').modal('hide')
+                if (data == 'success') {
+                    showToast('Your booking is sent successfully.')
+                } else {
+                    alert('Something went wrong')
+                }
+
             })
-        }
+        })
+
         //end
 
         //function for comment load more
@@ -260,6 +235,26 @@
                 }
             })
 
+        }
+        //end
+
+        //function for comment fetch
+        function fetchData() {
+            $.get('{{ route('showRelatedComments', $package->id) }}', function(d) {
+                $.each(d.data, function(a, b) {
+                    $('.comment-container').append(
+                        `
+                        <div class="border rounded-0 p-3 mb-3">
+                            <div class="d-flex align-items-center">
+                                <h5 class="fw-bold"><i class="ti-user mr-2"></i>${b.user.name}</h5>
+                                <small class="fw-lighter mb-1 ms-2">${b.created_at.replace('T',' ').substr(0,19)}</small>    
+                            </div>
+                            <small class="mb-0">${b.comment}</small>
+                        </div>
+                        `
+                    )
+                })
+            })
         }
         //end
     </script>

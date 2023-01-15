@@ -143,7 +143,7 @@
     }]
     ];
 
-        new Chartist.Bar('.ct-bar-chart', data, options, responsiveOptions);
+    new Chartist.Bar('.ct-bar-chart', data, options, responsiveOptions);
 
 
 

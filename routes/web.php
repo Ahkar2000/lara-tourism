@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/bookings/userBook', [BookingController::class, 'userBook'])->name('userBook');
     Route::put('/bookings/{id}/bookUpdate', [BookingController::class, 'bookUpdate'])->name("bookUpdate");
     Route::get('/bookings/{id}/bookCancel', [BookingController::class, 'bookCancel'])->name("bookCancel");
+    Route::delete('/bookings/{id}/bookDelete', [BookingController::class, 'bookDelete'])->name("bookDelete");
+    Route::get('/profile/setting', [PageController::class, 'setting'])->name('setting');
+    Route::post('/profile/update', [PageController::class, 'settingUpdate'])->name('settingUpdate');
 });
 
 Route::group(['prefix' => 'admin'], function() {

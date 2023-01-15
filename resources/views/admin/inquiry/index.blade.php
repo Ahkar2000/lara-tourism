@@ -52,7 +52,7 @@
                                                         @endif
                                                     <td>
                                                         <div class="dropdown">
-                                                            <a class="btn border dropdown-toggle" href="#"
+                                                            <a class="btn border dropdown-toggle" href="#" data-boundary="window"
                                                                 role="button" data-toggle="dropdown" aria-expanded="false">
                                                                 Action
                                                             </a>

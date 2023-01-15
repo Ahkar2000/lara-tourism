@@ -18,7 +18,7 @@
                         href="{{ route('packages.index') }}"><i class="ti-package"></i> Packages </a></li>
                 <li class="{{ request()->is('admin/comments*') ? 'active' : '' }} mb-1"><a
                         href="{{ route('comments.index') }}"><i class="bi bi-chat-left"></i> Comments </a></li>
-                <li><a class="sidebar-sub-toggle"><i class="bi bi-card-checklist"></i> Bookings <span
+                <li class="mb-3"><a class="sidebar-sub-toggle"><i class="bi bi-card-checklist"></i> Bookings <span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="{{ route('bookings.index',['status' => 'pending']) }}">Pending Bookings</a></li>

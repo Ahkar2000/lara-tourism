@@ -78,6 +78,10 @@
     @if(session('message'))
         showToast('{{ session('message') }}')
     @endif
+      //venobox start
+      $('.venobox').venobox();
+      //venobox end
+
     </script>
   </script>
 </body>

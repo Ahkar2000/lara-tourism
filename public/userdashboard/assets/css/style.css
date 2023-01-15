@@ -1086,6 +1086,11 @@ section {
   color: rgba(255, 255, 255, 0.58);
 }
 
+.pag li.active span{
+  background-color: #cc1616 !important;
+  border: none !important;
+}
+
 .pricing .featured .btn-wrap {
   padding: 15px;
   text-align: center;
