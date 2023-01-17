@@ -10,8 +10,7 @@
                         <div class="card">
                             <div class="card-title pr d-flex justify-content-between align-items-center">
                                 <h3 class="font-weight-bold">Detail</h3>
-                                <a href="{{ route('packages.index') }}"
-                                    class="btn btn-secondary btn-large float-right">Back</a>
+                                <a href="{{ route('packages.index') }}" class="btn btn-primary border-0 rounded-0" type="submit" style="background-color: #868e96;">Back</a>
                             </div>
                             <hr>
                             <div class="card-body">
@@ -82,7 +81,7 @@
         fetchData()
 
         function fetchData() {
-            $.get('{{ route('admin.showRelatedComments', $package->id) }}', function(d) {
+            $.get('{{ route('showRelatedComments', $package->id) }}', function(d) {
                 $.each(d.data, function(a, b) {
                     $('.comment-container').append(
                         `
@@ -100,7 +99,7 @@
         }
 
         function loadMoreData(page) {
-            $.get('{{ route('admin.showRelatedComments', $package->id) }}' + '?page=' + page, function(d) {
+            $.get('{{ route('showRelatedComments', $package->id) }}' + '?page=' + page, function(d) {
                 $.each(d.data, function(a, b) {
                     $('.comment-container').append(
                         `

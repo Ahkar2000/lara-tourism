@@ -11,7 +11,7 @@
                             <div class="card-title pr d-flex justify-content-between align-items-center">
                                 <h3 class="font-weight-bold">Packages</h3>
                                 <div>
-                                    <a class="btn btn-primary" href="{{ route('packages.create') }}">
+                                    <a href="{{ route('packages.create') }}" class="btn btn-primary border-0 rounded-0" type="submit" style="background-color: #868e96;">
                                         <i class="ti-plus"></i>  Add Package
                                     </a>
                                     <form action="{{ route('packages.index') }}" method="GET" class="d-inline-block">

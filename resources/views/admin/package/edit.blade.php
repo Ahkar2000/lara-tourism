@@ -97,8 +97,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group float-right">
-                                        <a href="{{ route('packages.index') }}" class="btn btn-secondary">Back</a>
-                                        <button form="update-form" class="btn btn-primary" type="submit">Submit</button>
+                                        <a href="{{ route('packages.index') }}" class="btn border rounded-0">Back</a>
+                                        <button class="btn btn-primary border-0 rounded-0" type="submit" style="background-color: #868e96;">Update</button>
                                     </div>
                             </div>
                         </div>
