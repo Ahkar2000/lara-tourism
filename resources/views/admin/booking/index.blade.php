@@ -11,17 +11,12 @@
                             <div class="card-title pr d-flex justify-content-between align-items-center">
                                 <h3 class=" font-weight-bold">Bookings</h3>
                                 <form action="{{ route('bookings.index') }}" method="GET" class="d-inline-block">
-                                    <div class="d-flex ">
-                                        <div class="mb-3 ml-2">
-                                            <input type="text" placeholder="Search" class="form-control"
-                                                value="{{ request('search') }}" name="search">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Search" aria-describedby="button-addon1" value="{{ request('search') }}" name="search">
+                                        <div class="input-group-prepend">
+                                          <button class="btn border" type="button" id="button-addon1"><i class="ti-search"></i></button>
                                         </div>
-                                        <div class="">
-                                            <button class="btn border">
-                                                <i class="ti-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </div>  
                                 </form>
                             </div>
                             <div class="card-body">
