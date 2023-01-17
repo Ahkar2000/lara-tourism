@@ -210,6 +210,10 @@
 
         //end
 
+         //venobox start
+      $('.venobox').venobox();
+      //venobox end
+
         //function for comment load more
         function loadMoreData(page) {
             $('#spinner').removeClass('d-none').addClass('d-block')

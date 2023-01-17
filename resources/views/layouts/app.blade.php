@@ -25,7 +25,6 @@
   <link href="{{ url('userdashboard/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.css"/>
 
 
   <!-- Template Main CSS File -->
@@ -53,7 +52,6 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
   <!-- Template Main JS File -->
   <script type="text/javascript" src="{{ url('userdashboard/assets/js/main.js') }}"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.1/datatables.min.js"></script>
 
   @stack('script')
   <script>
@@ -78,9 +76,7 @@
     @if(session('message'))
         showToast('{{ session('message') }}')
     @endif
-      //venobox start
-      $('.venobox').venobox();
-      //venobox end
+     
 
     </script>
   </script>
