@@ -89,6 +89,10 @@
 @endsection
 @push('script')
     <script>
+    $('.stat-digit').counterUp({
+        'delay': 10,
+        'time': 1000
+    });
         
     (function ($) {
         "use strict";

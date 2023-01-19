@@ -119,7 +119,7 @@ class BookingController extends Controller
         $booking->amount = $package->price * $request->quantity;
         $booking->save();   
 
-        return "success";
+        return response()->json([$booking,$package]);
     }
     public function bookUpdate(Request $request, $id)
     {

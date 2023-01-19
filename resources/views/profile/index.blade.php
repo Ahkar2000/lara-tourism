@@ -104,9 +104,14 @@
                                                                                     <span class=" fw-bolder me-3">Date:</span>
                                                                                     <span>{{ $booking->created_at }}</span>
                                                                                 </div>
+                                                                                <div class="ms-2">
+                                                                                    <span class=" fw-bolder me-3">UserName:</span>
+                                                                                    <span>{{ Auth::user()->name }}</span>
+                                                                                </div>
                                                                                 <table class="table">
                                                                                     <thead>
                                                                                         <th>Package Name</th>
+                                                                                        <th>Schedule</th>
                                                                                         <th>People</th>
                                                                                         <th>Price</th>
                                                                                         <th>Amount</th>
@@ -114,12 +119,13 @@
                                                                                     <tbody>
                                                                                         <tr>
                                                                                             <td>{{ $booking->package->name }}</td>
+                                                                                            <td class="text-nowrap">{{ $booking->schedule }}</td>
                                                                                             <td>{{ $booking->quantity }}</td>
                                                                                             <td>{{ $booking->package->price }}</td>
                                                                                             <td>{{ $booking->amount }}</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td colspan="3">
+                                                                                            <td colspan="4">
                                                                                                 <span class=" fw-bolder">Total</span>
                                                                                             </td>
                                                                                             <td>
@@ -129,14 +135,8 @@
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                                <a href="#" class="btn-custom1">
-                                                                                    Download <i class="bi bi-download"></i>
-                                                                                </a>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                    
                                                                 </div>
                                                                 <div class="modal fade rounded-0"
                                                                     id="exampleModal{{ $key }}" tabindex="-1"

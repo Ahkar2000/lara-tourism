@@ -62,6 +62,8 @@
     <script src="{{ url('dashboard/js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
     <!-- scripit init-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 
     <script>
         window.showToast = function(message){

@@ -91,6 +91,58 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade rounded-0" id="voucher" tabindex="-1"
+                                aria-labelledby="voucher-modal" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content rounded-0">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="voucher-modal">Booking Voucher</h1>
+                                            <button type="button" class="btn-close rounded-0" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="ms-2">
+                                                <span class=" fw-bolder me-3">Booking ID:</span>
+                                                <span class="booking-id"></span>
+                                            </div>
+                                            <div class="ms-2">
+                                                <span class=" fw-bolder me-3">Date:</span>
+                                                <span class="booking-date"></span>
+                                            </div>
+                                            <div class="ms-2">
+                                                <span class=" fw-bolder me-3">UserName:</span>
+                                                <span>{{ Auth::user()->name }}</span>
+                                            </div>
+                                            <table class="table">
+                                                <thead>
+                                                    <th>Package Name</th>
+                                                    <th>Schedule</th>
+                                                    <th>People</th>
+                                                    <th>Price</th>
+                                                    <th>Amount</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="package"></td>
+                                                        <td class="text-nowrap schedule"></td>
+                                                        <td class="people"></td>
+                                                        <td class="price"></td>
+                                                        <td class="amount"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <span class=" fw-bolder total">Total</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class=" fw-bolder total-amount"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <hr class="border-danger">
                             <h4 class="fw-bold mb-2">Comments ( <span
                                     id="total-comments">{{ $package->comments->count() }}</span> )</h4>
@@ -142,7 +194,7 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            
+
             //comment button disable to empty input
             $('#button-addon2').prop('disabled', true);
 
@@ -163,7 +215,7 @@
                 loadMoreData(page);
 
             })
-            
+
             //comment ajax start
             $('#comment').on('submit', function(e) {
                 e.preventDefault()
@@ -199,20 +251,23 @@
             $.post($(this).attr('action'), input, function(data) {
                 $('#book-form')[0].reset()
                 $('.modal').modal('hide')
-                if (data == 'success') {
-                    showToast('Your booking is sent successfully.')
-                } else {
-                    alert('Something went wrong')
-                }
-
+                $('#voucher').modal('show')
+                $('.booking-id').html(data[0].booking_code)
+                $('.schedule').html(data[0].schedule)
+                $('.booking-date').html(data[0].schedule)
+                $('.package').html(data[1].name)
+                $('.people').html(data[0].quantity)
+                $('.price').html(data[1].price)
+                $('.amount').html(data[0].amount)
+                $('.total-amount').html(data[0].amount)
             })
         })
 
         //end
 
-         //venobox start
-      $('.venobox').venobox();
-      //venobox end
+        //venobox start
+        $('.venobox').venobox();
+        //venobox end
 
         //function for comment load more
         function loadMoreData(page) {
