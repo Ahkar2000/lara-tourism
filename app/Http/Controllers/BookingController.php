@@ -6,6 +6,7 @@ use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Models\Package;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -108,11 +109,14 @@ class BookingController extends Controller
     }
     public function userBook(StoreBookingRequest $request)
     {
+        $package = Package::findOrFail($request->package_id);
         $booking = new Booking();
         $booking->user_id = Auth::id();
         $booking->package_id = $request->package_id;
         $booking->schedule = $request->schedule;
+        $booking->booking_code = floor(time()-999999999);
         $booking->quantity = $request->quantity;
+        $booking->amount = $package->price * $request->quantity;
         $booking->save();   
 
         return "success";
@@ -120,6 +124,7 @@ class BookingController extends Controller
     public function bookUpdate(Request $request, $id)
     {
         $booking = Booking::find($id);
+        $package = Package::findOrFail($booking->package_id);
         $request->validate([
             'package_id' => 'required|exists:packages,id',
             'quantity' => 'nullable|numeric',
@@ -127,6 +132,7 @@ class BookingController extends Controller
         ]);
         if($request->has('quantity')){
             $booking->quantity = $request->quantity;
+            $booking->amount = $request->quantity * $package->price;
         }
         if($request->has('schedule')){
             $booking->schedule = $request->schedule;

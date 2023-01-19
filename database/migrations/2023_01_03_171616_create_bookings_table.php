@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->string('booking_code');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('package_id')->constrained()->cascadeOnDelete();
             $table->enum('status',[0,1,2,3])->default(0);
             $table->date('schedule');
             $table->integer('quantity');
+            $table->integer('amount');
             $table->timestamps();
         });
     }

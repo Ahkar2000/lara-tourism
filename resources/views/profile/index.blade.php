@@ -25,6 +25,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>DateTime</th>
+                                                    <th>Booking ID</th>
                                                     <th>Package</th>
                                                     <th>Schedule</th>
                                                     <th>Quantity</th>
@@ -37,6 +38,7 @@
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
                                                         <td>{{ $booking->created_at }}</td>
+                                                        <td>{{ $booking->booking_code }}</td>
                                                         <td>{{ $booking->package->name }}</td>
                                                         <td class="sd">{{ $booking->schedule }}</td>
                                                         <td class="qt">{{ $booking->quantity }}</td>
@@ -63,6 +65,12 @@
                                                                     </button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                                                data-bs-target="#voucher{{ $key }}">View</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <hr class="dropdown-divider">
+                                                                        </li>
+                                                                        <li><a class="dropdown-item" data-bs-toggle="modal"
                                                                                 data-bs-target="#exampleModal{{ $key }}">Edit</a>
                                                                         </li>
                                                                         <li>
@@ -72,6 +80,63 @@
                                                                                 href="{{ route('bookCancel', $booking->id) }}">Cancel</a>
                                                                         </li>
                                                                     </ul>
+                                                                </div>
+
+                                                                <div class="modal fade rounded-0" id="voucher{{$key}}"
+                                                                    tabindex="-1" aria-labelledby="voucher-modal"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content rounded-0">
+                                                                            <div class="modal-header">
+                                                                                <h1 class="modal-title fs-5"
+                                                                                    id="voucher-modal">Booking Voucher</h1>
+                                                                                <button type="button"
+                                                                                    class="btn-close rounded-0"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="ms-2">
+                                                                                    <span class=" fw-bolder me-3">Booking ID:</span>
+                                                                                    <span>{{ $booking->booking_code }}</span>
+                                                                                </div>
+                                                                                <div class="ms-2">
+                                                                                    <span class=" fw-bolder me-3">Date:</span>
+                                                                                    <span>{{ $booking->created_at }}</span>
+                                                                                </div>
+                                                                                <table class="table">
+                                                                                    <thead>
+                                                                                        <th>Package Name</th>
+                                                                                        <th>People</th>
+                                                                                        <th>Price</th>
+                                                                                        <th>Amount</th>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>{{ $booking->package->name }}</td>
+                                                                                            <td>{{ $booking->quantity }}</td>
+                                                                                            <td>{{ $booking->package->price }}</td>
+                                                                                            <td>{{ $booking->amount }}</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td colspan="3">
+                                                                                                <span class=" fw-bolder">Total</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <span class=" fw-bolder">{{ $booking->amount }}</span>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <a href="#" class="btn-custom1">
+                                                                                    Download <i class="bi bi-download"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
                                                                 </div>
                                                                 <div class="modal fade rounded-0"
                                                                     id="exampleModal{{ $key }}" tabindex="-1"
@@ -137,9 +202,9 @@
                                                         </td>
                                                     </tr>
                                                 @empty
-                                                <tr> 
-                                                    <td colspan="9" class="text-center">There is no booking.</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td colspan="9" class="text-center">There is no booking.</td>
+                                                    </tr>
                                                 @endforelse
                                             </tbody>
                                         </table>
