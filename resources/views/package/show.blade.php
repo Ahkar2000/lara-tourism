@@ -149,7 +149,7 @@
                             <div class="comment-container">
 
                             </div>
-                            @if ($package->comments->count() >= 5)
+                            @if ($package->comments->count() > 5)
                                 <div class="text-center" id="cload">
                                     <p>
                                         <a id="load-more" href="" class="text-dark">

@@ -88,7 +88,7 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return to_route('comments.index')->with('message','Comment is deleted successfully.');
+        return back()->with('status','Comment is deleted successfully.');
     }
     public function showRelatedComments($package_id){
         $comments = Comment::where('package_id',$package_id)->latest('id')->with('user')->paginate(5);
