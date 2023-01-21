@@ -157,21 +157,6 @@
             </div>
         </section><!-- End Services Section -->
 
-        <!-- ======= Cta Section ======= -->
-        <section id="cta" class="cta">
-            <div class="container" data-aos="zoom-in">
-
-                <div class="text-center">
-                    <h3>Call To Action</h3>
-                    <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.</p>
-                    <a class="cta-btn" href="#">Call To Action</a>
-                </div>
-
-            </div>
-        </section><!-- End Cta Section -->
-
         <!-- ======= Pricing Section ======= -->
         <section id="pricing" class="pricing">
             <div class="container">
@@ -216,8 +201,8 @@
                     <p>Sit sint consectetur velit quisquam cupiditate impedit suscipit alias</p>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
                         <div class="member">
                             <img src="{{ url('userdashboard/assets/img/team/team-1.jpg') }}" alt="">
                             <h4>Walter White</h4>
@@ -235,7 +220,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
+                    <div class="col-lg-5 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
                         <div class="member">
                             <img src="{{ url('userdashboard/assets/img/team/team-2.jpg') }}" alt="">
                             <h4>Sarah Jhinson</h4>
@@ -243,24 +228,6 @@
                             <p>
                                 Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum
                                 temporibus
-                            </p>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
-                        <div class="member">
-                            <img src="{{ url('userdashboard/assets/img/team/team-3.jpg') }}" alt="">
-                            <h4>William Anderson</h4>
-                            <span>CTO</span>
-                            <p>
-                                Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro
-                                des clara
                             </p>
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
@@ -291,7 +258,7 @@
                         <div class="info-box mb-4">
                             <i class="bx bx-map"></i>
                             <h3>Our Address</h3>
-                            <p>A108 Adam Street, New York, NY 535022</p>
+                            <p>Yan la Village, Mong Lah Rd, Keng Tung</p>
                         </div>
                     </div>
 
@@ -299,7 +266,7 @@
                         <div class="info-box  mb-4">
                             <i class="bx bx-envelope"></i>
                             <h3>Email Us</h3>
-                            <p>contact@example.com</p>
+                            <p>mikitsm.work@gmail.com</p>
                         </div>
                     </div>
 
@@ -307,7 +274,7 @@
                         <div class="info-box  mb-4">
                             <i class="bx bx-phone-call"></i>
                             <h3>Call Us</h3>
-                            <p>+1 5589 55488 55</p>
+                            <p>+959253055235</p>
                         </div>
                     </div>
 
@@ -317,7 +284,7 @@
 
                     <div class="col-lg-6 ">
                         <iframe class="mb-4 mb-lg-0"
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.728415475194!2d99.63104011441224!3d21.321745083088597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30d4438a6c50c3b1%3A0x3f7baefa702e37e7!2sUniversity%20of%20Computer%20Studies%20(Kyaing%20Tong)!5e0!3m2!1sen!2smm!4v1674317572651!5m2!1sen!2smm"
                             frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
                     </div>
 
