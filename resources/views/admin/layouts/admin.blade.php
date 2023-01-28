@@ -86,8 +86,8 @@
         title: message
     })
     }
-    @if(session('status'))
-        showToast('{{ session('status') }}')
+    @if(session('message'))
+        showToast('{{ session('message') }}')
     @endif
     </script>
     @stack('script')

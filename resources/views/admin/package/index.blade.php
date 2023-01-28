@@ -76,7 +76,7 @@
                                                 </tr>
                                             @empty
                                                 <tr >
-                                                    <td colspan="6" class="text-center">Three is no data.</td>
+                                                    <td colspan="6" class="text-center">There is no data.</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

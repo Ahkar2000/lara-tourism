@@ -71,7 +71,7 @@
                                                     </div>
                                                     <div class="my-3">
                                                         <label class="form-label">Booking Date</label>
-                                                        <input type="date" name="schedule" class="form-control">
+                                                        <input type="date" min="{{ now ()->format ('Y-m-d') }}" name="schedule" class="form-control">
                                                     </div>
                                                     <hr>
                                                     @auth
@@ -106,13 +106,16 @@
                                                 <span class="booking-id"></span>
                                             </div>
                                             <div class="ms-2">
-                                                <span class=" fw-bolder me-3">Date:</span>
+                                                <span class=" fw-bolder me-3">DateTime:</span>
                                                 <span class="booking-date"></span>
                                             </div>
+                                            @auth
                                             <div class="ms-2">
                                                 <span class=" fw-bolder me-3">UserName:</span>
                                                 <span>{{ Auth::user()->name }}</span>
                                             </div>
+                                            @endauth
+                                            
                                             <table class="table">
                                                 <thead>
                                                     <th>Package Name</th>
@@ -233,8 +236,8 @@
                         `
                         <div class="border rounded-0 p-3 mb-3">
                             <div class="d-flex align-items-center">
-                                <h5 class="fw-bold"><i class="ti-user mr-2"></i>${data[1]}</h5>
-                                <small class="fw-lighter mb-1 ms-2">${data[0].created_at.replace('T',' ').substr(0,19)}</small>    
+                                <h5 class="fw-bold"><i class="bi bi-person"></i>${data[1]}</h5>
+                                <small class="fw-lighter mb-1 ms-2">${moment(new Date(data[0].created_at)).format('YYYY-MM-DD HH:m:s')}</small>    
                             </div>
                             <small class="mb-0">${data[0].comment}</small>
                         </div>
@@ -254,7 +257,7 @@
                 $('#voucher').modal('show')
                 $('.booking-id').html(data[0].booking_code)
                 $('.schedule').html(data[0].schedule)
-                $('.booking-date').html(data[0].schedule)
+                $('.booking-date').html(moment(new Date(data[0].created_at)).format('YYYY-MM-DD HH:m:s'))
                 $('.package').html(data[1].name)
                 $('.people').html(data[0].quantity)
                 $('.price').html(data[1].price)
@@ -279,8 +282,8 @@
                         `
                         <div class="border rounded p-3 mb-3">
                             <div class="d-flex align-items-center">
-                                <h5 class="fw-bold"><i class="ti-user mr-2"></i>${b.user.name}</h5>
-                                <small class="fw-lighter mb-1 ms-2">${b.created_at.replace('T',' ').substr(0,19)}</small>    
+                                <h5 class="fw-bold"><i class="bi bi-person"></i>${b.user.name}</h5>
+                                <small class="fw-lighter mb-1 ms-2">${moment(new Date(b.created_at)).format('YYYY-MM-DD HH:m:s')}</small>    
                             </div>
                             <small class="mb-0">${b.comment}</small>
                         </div>
@@ -301,12 +304,13 @@
         function fetchData() {
             $.get('{{ route('showRelatedComments', $package->id) }}', function(d) {
                 $.each(d.data, function(a, b) {
+                    console.log(b)
                     $('.comment-container').append(
                         `
                         <div class="border rounded-0 p-3 mb-3">
                             <div class="d-flex align-items-center">
-                                <h5 class="fw-bold"><i class="ti-user mr-2"></i>${b.user.name}</h5>
-                                <small class="fw-lighter mb-1 ms-2">${b.created_at.replace('T',' ').substr(0,19)}</small>    
+                                <h5 class="fw-bold"><i class="bi bi-person"></i>${b.user.name}</h5>
+                                <small class="fw-lighter mb-1 ms-2">${moment(new Date(b.created_at)).format('YYYY-MM-DD HH:m:s')}</small>    
                             </div>
                             <small class="mb-0">${b.comment}</small>
                         </div>

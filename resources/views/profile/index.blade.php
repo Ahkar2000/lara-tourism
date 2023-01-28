@@ -65,19 +65,22 @@
                                                                     </button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                                                data-bs-target="#voucher{{ $key }}">View</a>
+                                                                                data-bs-target="#voucher{{ $key }}">
+                                                                                <i class="bi bi-file-earmark text-info"></i> View</a>
                                                                         </li>
                                                                         <li>
                                                                             <hr class="dropdown-divider">
                                                                         </li>
                                                                         <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                                                data-bs-target="#exampleModal{{ $key }}">Edit</a>
+                                                                                data-bs-target="#exampleModal{{ $key }}">
+                                                                                <i class="bi bi-pencil-square text-warning"></i> Edit</a>
                                                                         </li>
                                                                         <li>
                                                                             <hr class="dropdown-divider">
                                                                         </li>
                                                                         <li><a class="dropdown-item cancel-btn"
-                                                                                href="{{ route('bookCancel', $booking->id) }}">Cancel</a>
+                                                                                href="{{ route('bookCancel', $booking->id) }}">
+                                                                                <i class="bi bi-x-square text-danger"></i> Cancel</a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
@@ -101,7 +104,7 @@
                                                                                     <span>{{ $booking->booking_code }}</span>
                                                                                 </div>
                                                                                 <div class="ms-2">
-                                                                                    <span class=" fw-bolder me-3">Date:</span>
+                                                                                    <span class=" fw-bolder me-3">DateTime:</span>
                                                                                     <span>{{ $booking->created_at }}</span>
                                                                                 </div>
                                                                                 <div class="ms-2">
@@ -171,7 +174,7 @@
                                                                                     <div class="my-3">
                                                                                         <label class="form-label">Booking
                                                                                             Date</label>
-                                                                                        <input type="date"
+                                                                                        <input type="date" min="{{ now()->format('Y-m-d') }}"
                                                                                             name="schedule"
                                                                                             class="form-control"
                                                                                             id="schedule"
@@ -214,7 +217,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </section>
             </div>

@@ -25,7 +25,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label">Account Name</label>
-                                            <input type="text" disabled name="name" class="form-control  @error('name') is-invalid @enderror" value="{{ old('name',Auth::user()->name) }}">
+                                            <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{ old('name',Auth::user()->name) }}">
                                             @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -34,7 +34,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input type="email" disabled name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email',Auth::user()->email) }}">
+                                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email',Auth::user()->email) }}">
                                             @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

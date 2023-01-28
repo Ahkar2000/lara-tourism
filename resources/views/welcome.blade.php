@@ -157,6 +157,18 @@
             </div>
         </section><!-- End Services Section -->
 
+        <!-- ======= Cta Section ======= -->
+        <section id="cta" class="cta">
+            <div class="container" data-aos="zoom-in">
+            <div class="text-center">
+                <h3>Call To Action</h3>
+                <p> Our customer service is 24 hours active. If you have something to ask or you want to know about packages details, don't be shy. You can call us now.</p>
+                <a class="cta-btn" href="tel:+959253055235">Call Now</a>
+            </div>
+    
+            </div>
+        </section><!-- End Cta Section -->
+
         <!-- ======= Pricing Section ======= -->
         <section id="pricing" class="pricing">
             <div class="container">
@@ -293,7 +305,7 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 form-group">
-                                    <input type="text" name="name" class="form-control" id="name"
+                                    <input type="text" name="name" class="form-control" id="name" minlength="3"
                                         placeholder="Your Name" required>
                                 </div>
                                 <div class="col-md-6 form-group mt-3 mt-md-0">
@@ -302,11 +314,11 @@
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <input type="text" class="form-control" name="subject" id="subject"
+                                <input type="text" minlength="3" class="form-control" name="subject" id="subject"
                                     placeholder="Subject" required>
                             </div>
                             <div class="form-group mt-3">
-                                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Message" required></textarea>
+                                <textarea minlength="10" class="form-control" id="message" name="message" rows="5" placeholder="Message" required></textarea>
                             </div>
                             <div class="my-3">
                                 <div class="loading">Loading</div>

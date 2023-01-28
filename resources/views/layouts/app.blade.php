@@ -50,6 +50,7 @@
   <script src="{{ url('dashboard/js/lib/jquery.min.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <!-- Template Main JS File -->
   <script type="text/javascript" src="{{ url('userdashboard/assets/js/main.js') }}"></script>
   @stack('script')
