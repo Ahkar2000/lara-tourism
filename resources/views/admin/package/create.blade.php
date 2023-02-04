@@ -25,6 +25,19 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="" class=" font-weight-bold">Category Name</label>
+                                        <select name="category" class="form-control @error('category') is-invalid @enderror">
+                                            @foreach ($categories as $category)
+                                                <option class="text-capitalize" value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="" class=" font-weight-bold">Location</label>
                                         <input name="location" value="{{ old('location') }}" type="address" class="form-control @error('location') is-invalid @enderror">
                                         @error('location')

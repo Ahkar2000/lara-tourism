@@ -25,6 +25,7 @@ class StorePackageRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:50|unique:packages,name',
+            'category' => 'required|exists:categories,id',
             'location' => 'required|min:10',
             'price' => 'required|numeric|min:1',
             'description' => 'required|min:20',

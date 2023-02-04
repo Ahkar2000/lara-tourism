@@ -11,6 +11,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePackageRequest;
 use App\Http\Requests\UpdatePackageRequest;
+use App\Models\Category;
 
 class PackageController extends Controller
 {
@@ -36,7 +37,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.package.create');
+        $categories = Category::latest('id')->get();
+        return view('admin.package.create',compact('categories'));
     }
 
     /**
@@ -51,11 +53,13 @@ class PackageController extends Controller
 
             DB::beginTransaction();
 
+
             $package = new Package();
             $package->name = $request->name;
             $package->slug = Str::slug($request->name);
             $package->location = $request->location;
             $package->price = $request->price;
+            $package->category_id = $request->category;
             $package->description = $request->description;
             $package->save();
 
@@ -108,7 +112,8 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
-        return view('admin.package.edit',compact('package'));
+        $categories = Category::latest('id')->get();
+        return view('admin.package.edit',compact('package','categories'));
     }
 
     /**
@@ -129,6 +134,7 @@ class PackageController extends Controller
             $package->location = $request->location;
             $package->price = $request->price;
             $package->description = $request->description;
+            $package->category_id = $request->category;
             $package->update();
 
             if(request()->hasFile('photos')){
@@ -179,7 +185,17 @@ class PackageController extends Controller
         return view('package.show',compact('package'));
     }
     public function showPackages(){
-        $packages = Package::latest('id')->with('photos')->get();
-        return view('package.index',compact('packages'));
+        $packages = Package::when(request('search'),function($query){
+            $search = request('search');
+            $query->where('name','like',"%$search%")->orWhere('location','like',"%$search%")->orWhere('description','like',"%$search%");
+        })
+        ->latest('id')->paginate(10)->withQueryString();
+        $categories = Category::latest('id')->get();
+        return view('package.index',compact('packages','categories'));
+    }
+    public function packageByCategory(Category $category){
+        $categories = Category::latest('id')->get();
+        $packages = Package::where('category_id',$category->id)->get();
+        return view('package.index',compact('packages','categories','category'));
     }
 }

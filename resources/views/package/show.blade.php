@@ -47,6 +47,8 @@
                                 <div class="col-lg-7">
                                     <h4 class="fw-bold mb-0">{{ $package->name }}</h4>
                                     <hr class="border-danger">
+                                    <span class="badge text-bg-info text-capitalize rounded-0">{{ $package->category->name }}</span>
+                                    <br>
                                     <small class="fw-light mb-0">Location : {{ $package->location }}</small>
                                     <h4 class="fw-bold">Description</h4>
                                     <p class="">{{ $package->description }}</p>

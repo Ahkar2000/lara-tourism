@@ -28,6 +28,19 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="" class=" font-weight-bold">Category Name</label>
+                                        <select form="update-form" name="category" class="form-control @error('category') is-invalid @enderror">
+                                            @foreach ($categories as $category)
+                                                <option class="text-capitalize" @if($category->id == $package->category_id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="" class=" font-weight-bold">Location</label>
                                         <input form="update-form" name="location" value="{{ old('location', $package->location) }}"
                                             type="address" class="form-control @error('location') is-invalid @enderror">

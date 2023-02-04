@@ -50,6 +50,7 @@
                                         <div class="col-lg-7">
                                             <h4 class="font-weight-bold mb-0">{{ $package->name }}</h4>
                                             <hr>
+                                            <span class="badge badge-info mb-1 text-capitalize">{{ $package->category->name }}</span>
                                             <p class="text-mute mb-0">Location : {{ $package->location }}</p>
                                             <h4 class="font-weight-bold">Description</h4>
                                             <p class="font-weight-bold">{{ $package->description }}</p>

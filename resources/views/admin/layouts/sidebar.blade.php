@@ -9,6 +9,9 @@
                 <li><a href="{{ route('admin.dashboard') }}"><i class="ti-home"></i> Dashboard </a></li>
 
                 <li class="label">Pages</li>
+                <li class="{{ request()->is('admin/categories*') ? 'active' : '' }} mb-1">
+                    <a href="{{ route('categories.index') }}"><i class="ti ti-list"></i> Categories </a>
+                </li>
                 <li class="{{ request()->is('admin/users*') ? 'active' : '' }} mb-1">
                     <a href="{{ route('admin.showUsers') }}"><i class="bi bi-people"></i> Users </a>
                 </li>

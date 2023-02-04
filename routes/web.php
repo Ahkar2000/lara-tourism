@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InquiryController;
@@ -30,6 +31,7 @@ Route::post('/inquiries', [InquiryController::class, 'store'])->name('store');
 Route::get('/packages/{package:slug}', [PackageController::class, 'userShow'])->name('userShow');
 Route::get('/comments/{package_id}/show', [CommentController::class, 'showRelatedComments'])->name('showRelatedComments');
 Route::get('/packages',[PackageController::class, 'showPackages'])->name('showPackages');
+Route::get('/filter-packages/{category:slug}',[PackageController::class, 'packageByCategory'])->name('packageByCategory');
 
 Route::middleware('auth')->group(function(){
     Route::get('/profile',[PageController::class, 'profile'])->name('profile');
@@ -59,5 +61,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::resource('/comments', CommentController::class);
         Route::resource('/bookings', BookingController::class);
         Route::get('/users', [App\Http\Controllers\Admin\DashboardController::class, 'showUsers'])->name('admin.showUsers');
+        Route::resource('/categories', CategoryController::class);
     });
 });

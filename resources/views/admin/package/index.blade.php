@@ -31,6 +31,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Package Name</th>
+                                                <th>Category</th>
                                                 <th>Location</th>
                                                 <th>Price</th>
                                                 <th>Description</th>
@@ -42,6 +43,7 @@
                                                 <tr>
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ $package->name }}</td>
+                                                    <td>{{ $package->category->name }}</td>
                                                     <td>{{ Str::limit($package->location, 20, '...') }}</td>
                                                     <td>{{ $package->price }}</td>
                                                     <td>{{ Str::limit($package->description, 20, '...') }}</td>
