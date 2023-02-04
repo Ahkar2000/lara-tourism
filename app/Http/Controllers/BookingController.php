@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Package;
+use App\Models\Place;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -110,16 +111,18 @@ class BookingController extends Controller
     public function userBook(StoreBookingRequest $request)
     {
         $package = Package::findOrFail($request->package_id);
+        $place = Place::findOrFail($request->place_id);
         $booking = new Booking();
         $booking->user_id = Auth::id();
         $booking->package_id = $request->package_id;
         $booking->schedule = $request->schedule;
+        $booking->place_id = $request->place_id;
         $booking->booking_code = floor(time()-999999999);
         $booking->quantity = $request->quantity;
         $booking->amount = $package->price * $request->quantity;
         $booking->save();   
 
-        return response()->json([$booking,$package]);
+        return response()->json([$booking,$package,$place]);
     }
     public function bookUpdate(Request $request, $id)
     {
@@ -129,6 +132,7 @@ class BookingController extends Controller
             'package_id' => 'required|exists:packages,id',
             'quantity' => 'nullable|numeric',
             'schedule' => 'nullable|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
+            'place_id' => 'nullable|exists:places,id'
         ]);
         if($request->has('quantity')){
             $booking->quantity = $request->quantity;
@@ -136,6 +140,9 @@ class BookingController extends Controller
         }
         if($request->has('schedule')){
             $booking->schedule = $request->schedule;
+        }
+        if($request->has('place')){
+            $booking->place_id = $request->place;
         }
         $booking->update();
         return back()->with('message','Your Booking is updated successfully.');
@@ -155,5 +162,20 @@ class BookingController extends Controller
         $booking = Booking::find($id);
         $booking->delete();
         return back()->with('message','Booking is deleted successfully.');
+    }
+    public function confirmation(Request $request)
+    {
+        //validate the form
+        $this->validate($request, [
+            'quantity' => 'required|numeric|min:1',
+            'schedule' => 'required|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
+            'package_id' => 'required|exists:packages,id',
+            'place_id' => 'required|exists:places,id'
+        ]);
+
+        $data['myForm'] = $request->all();
+
+        return response()->json($data);
+
     }
 }

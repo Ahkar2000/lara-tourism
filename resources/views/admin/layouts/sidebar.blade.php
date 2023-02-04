@@ -12,6 +12,9 @@
                 <li class="{{ request()->is('admin/categories*') ? 'active' : '' }} mb-1">
                     <a href="{{ route('categories.index') }}"><i class="ti ti-list"></i> Categories </a>
                 </li>
+                <li class="{{ request()->is('admin/places*') ? 'active' : '' }} mb-1">
+                    <a href="{{ route('places.index') }}"><i class="bi bi-geo-alt"></i> Destination Places </a>
+                </li>
                 <li class="{{ request()->is('admin/users*') ? 'active' : '' }} mb-1">
                     <a href="{{ route('admin.showUsers') }}"><i class="bi bi-people"></i> Users </a>
                 </li>

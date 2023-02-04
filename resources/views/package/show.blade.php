@@ -69,11 +69,21 @@
                                                     <input type="hidden" name="package_id" value="{{ $package->id }}">
                                                     <div class="mb-3">
                                                         <label class="form-label">Number of People</label>
-                                                        <input type="number" name="quantity" class="form-control">
+                                                        <input type="number" min="1" max="50" name="quantity" class="form-control">
                                                     </div>
                                                     <div class="my-3">
                                                         <label class="form-label">Booking Date</label>
                                                         <input type="date" min="{{ now ()->format ('Y-m-d') }}" name="schedule" class="form-control">
+                                                    </div>
+                                                    <div class="my-3">
+                                                        <label class="form-label">Where should we pick you up?</label>
+                                                        <select name="place_id" class="form-control">
+                                                            @forelse ($places as $place)
+                                                                <option value="{{ $place->id }}" class="text-capitalize">{{ $place->name }}</option>
+                                                            @empty
+                                                                
+                                                            @endforelse
+                                                        </select>
                                                     </div>
                                                     <hr>
                                                     @auth
@@ -110,6 +120,10 @@
                                             <div class="ms-2">
                                                 <span class=" fw-bolder me-3">DateTime:</span>
                                                 <span class="booking-date"></span>
+                                            </div>
+                                            <div class="ms-2">
+                                                <span class=" fw-bolder me-3">Destination Place:</span>
+                                                <span class="place"></span>
                                             </div>
                                             @auth
                                             <div class="ms-2">
@@ -253,11 +267,13 @@
         $('#book-form').on('submit', function(e) {
             e.preventDefault()
             let input = $(this).serialize()
+            console.log(input)
             $.post($(this).attr('action'), input, function(data) {
                 $('#book-form')[0].reset()
                 $('.modal').modal('hide')
                 $('#voucher').modal('show')
                 $('.booking-id').html(data[0].booking_code)
+                $('.place').html(data[2].name)
                 $('.schedule').html(data[0].schedule)
                 $('.booking-date').html(moment(new Date(data[0].created_at)).format('YYYY-MM-DD HH:m:s'))
                 $('.package').html(data[1].name)

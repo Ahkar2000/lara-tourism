@@ -8,6 +8,7 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -62,5 +63,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::resource('/bookings', BookingController::class);
         Route::get('/users', [App\Http\Controllers\Admin\DashboardController::class, 'showUsers'])->name('admin.showUsers');
         Route::resource('/categories', CategoryController::class);
+        Route::resource('/places', PlaceController::class);
     });
 });

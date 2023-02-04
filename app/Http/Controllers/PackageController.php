@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Photo;
+use App\Models\Place;
 use App\Models\Package;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePackageRequest;
 use App\Http\Requests\UpdatePackageRequest;
-use App\Models\Category;
 
 class PackageController extends Controller
 {
@@ -182,7 +183,8 @@ class PackageController extends Controller
         return to_route('packages.index')->with('message','Package is deleted successfully');
     }
     public function userShow(Package $package){
-        return view('package.show',compact('package'));
+        $places = Place::latest('id')->get();
+        return view('package.show',compact('package','places'));
     }
     public function showPackages(){
         $packages = Package::when(request('search'),function($query){

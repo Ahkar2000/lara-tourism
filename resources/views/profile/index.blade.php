@@ -108,6 +108,10 @@
                                                                                     <span>{{ $booking->created_at }}</span>
                                                                                 </div>
                                                                                 <div class="ms-2">
+                                                                                    <span class=" fw-bolder me-3">Destination Place:</span>
+                                                                                    <span>{{ $booking->place->name }}</span>
+                                                                                </div>
+                                                                                <div class="ms-2">
                                                                                     <span class=" fw-bolder me-3">UserName:</span>
                                                                                     <span>{{ Auth::user()->name }}</span>
                                                                                 </div>

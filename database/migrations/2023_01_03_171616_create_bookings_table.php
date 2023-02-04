@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('booking_code');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('package_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('place_id');
             $table->enum('status',[0,1,2,3])->default(0);
             $table->date('schedule');
             $table->integer('quantity');
