@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <h4 class="font-weight-bold mb-2">Comments  ( <span
+                                    <h4 class="font-weight-bold mb-2">Reviews  ( <span
                                         id="total-comments">{{ $package->comments->count() }}</span> ) </h4>
                                     <div class="comment-container">
 
@@ -66,7 +66,7 @@
                                         <div class="text-center" id="cload">
                                             <p>
                                                 <a id="load-more" href="" class="text-dark">
-                                                    <i class="bi bi-arrow-clockwise"></i> Load more comments
+                                                    <i class="bi bi-arrow-clockwise"></i> Load more reviews
                                                 </a>
                                             </p>
                                         </div>

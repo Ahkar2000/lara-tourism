@@ -9,6 +9,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/bookings/userBook', [BookingController::class, 'userBook'])->name('userBook');
     Route::put('/bookings/{id}/bookUpdate', [BookingController::class, 'bookUpdate'])->name("bookUpdate");
     Route::get('/bookings/{id}/bookCancel', [BookingController::class, 'bookCancel'])->name("bookCancel");
+    Route::get('/bookings/{id}/bookingShow', [BookingController::class, 'bookingShow'])->name('bookingShow');
     Route::delete('/bookings/{id}/bookDelete', [BookingController::class, 'bookDelete'])->name("bookDelete");
     Route::get('/profile/setting', [PageController::class, 'setting'])->name('setting');
     Route::post('/profile/update', [PageController::class, 'settingUpdate'])->name('settingUpdate');
@@ -64,5 +66,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/users', [App\Http\Controllers\Admin\DashboardController::class, 'showUsers'])->name('admin.showUsers');
         Route::resource('/categories', CategoryController::class);
         Route::resource('/places', PlaceController::class);
+        Route::resource('/vehicles', VehicleController::class);
     });
 });

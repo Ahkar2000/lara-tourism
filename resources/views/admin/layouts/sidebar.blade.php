@@ -15,6 +15,9 @@
                 <li class="{{ request()->is('admin/places*') ? 'active' : '' }} mb-1">
                     <a href="{{ route('places.index') }}"><i class="bi bi-geo-alt"></i> Destination Places </a>
                 </li>
+                <li class="{{ request()->is('admin/vehicles*') ? 'active' : '' }} mb-1">
+                    <a href="{{ route('vehicles.index') }}"><i class="bi bi-car-front-fill"></i> Vehicles </a>
+                </li>
                 <li class="{{ request()->is('admin/users*') ? 'active' : '' }} mb-1">
                     <a href="{{ route('admin.showUsers') }}"><i class="bi bi-people"></i> Users </a>
                 </li>
@@ -23,7 +26,7 @@
                 <li class="{{ request()->is('admin/packages*') ? 'active' : '' }} mb-1"><a
                         href="{{ route('packages.index') }}"><i class="ti-package"></i> Packages </a></li>
                 <li class="{{ request()->is('admin/comments*') ? 'active' : '' }} mb-1"><a
-                        href="{{ route('comments.index') }}"><i class="bi bi-chat-left"></i> Comments </a></li>
+                        href="{{ route('comments.index') }}"><i class="bi bi-chat-left"></i> Reviews </a></li>
                 <li class="mb-3"><a class="sidebar-sub-toggle"><i class="bi bi-card-checklist"></i> Bookings <span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Place;
 use App\Models\Booking;
+use App\Models\Package;
+use App\Models\Vehicle;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
-use App\Models\Package;
-use App\Models\Place;
-use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
@@ -110,29 +112,38 @@ class BookingController extends Controller
     }
     public function userBook(StoreBookingRequest $request)
     {
+        $vehicle = Vehicle::findOrFail($request->vehicle_id);
+        if($request->quantity > $vehicle->seat){
+            return abort(404);
+        }
         $package = Package::findOrFail($request->package_id);
         $place = Place::findOrFail($request->place_id);
         $booking = new Booking();
         $booking->user_id = Auth::id();
+        $booking->vehicle_id = $request->vehicle_id;
         $booking->package_id = $request->package_id;
         $booking->schedule = $request->schedule;
         $booking->place_id = $request->place_id;
         $booking->booking_code = floor(time()-999999999);
         $booking->quantity = $request->quantity;
-        $booking->amount = $package->price * $request->quantity;
+        $booking->amount = $package->price + $vehicle->price;
         $booking->save();   
 
-        return response()->json([$booking,$package,$place]);
+        return response()->json([$booking,$package,$place->name,$vehicle->model]);
     }
     public function bookUpdate(Request $request, $id)
     {
         $booking = Booking::find($id);
+        if (Gate::denies('update', $booking)) {
+            return abort(403, "You are not allowed to update.");
+        }
         $package = Package::findOrFail($booking->package_id);
         $request->validate([
             'package_id' => 'required|exists:packages,id',
             'quantity' => 'nullable|numeric',
             'schedule' => 'nullable|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
-            'place_id' => 'nullable|exists:places,id'
+            'place_id' => 'nullable|exists:places,id',
+            'vehicle_id' => 'nullable|exists:vehicles,id'
         ]);
         if($request->has('quantity')){
             $booking->quantity = $request->quantity;
@@ -144,12 +155,18 @@ class BookingController extends Controller
         if($request->has('place')){
             $booking->place_id = $request->place;
         }
+        if($request->has('vehicle_id')){
+            $booking->vehicle_id = $request->vehicle_id;
+        }
         $booking->update();
         return back()->with('message','Your Booking is updated successfully.');
     }
 
     public function bookCancel($id){
         $booking = Booking::find($id);
+        if (Gate::denies('update', $booking)) {
+            return abort(403, "You are not allowed to update.");
+        }
         $booking->status = '3';
         $check = $booking->update();
         If($check){
@@ -160,22 +177,15 @@ class BookingController extends Controller
     }
     public function bookDelete($id){
         $booking = Booking::find($id);
+        if (Gate::denies('delete', $booking)) {
+            return abort(403, "You are not allowed to delete.");
+        }
         $booking->delete();
         return back()->with('message','Booking is deleted successfully.');
     }
-    public function confirmation(Request $request)
-    {
-        //validate the form
-        $this->validate($request, [
-            'quantity' => 'required|numeric|min:1',
-            'schedule' => 'required|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
-            'package_id' => 'required|exists:packages,id',
-            'place_id' => 'required|exists:places,id'
-        ]);
-
-        $data['myForm'] = $request->all();
-
-        return response()->json($data);
-
+    public function bookingShow($id){
+        $booking = Booking::find($id);
+        Gate::authorize('view', $booking);
+        return response()->json($booking);
     }
 }

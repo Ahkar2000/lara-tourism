@@ -66,8 +66,7 @@
 
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item view-booking"
-                                                                    data-id="{{ $booking->id }}" data-toggle="modal"
-                                                                    data-target="#staticBackdrop"
+                                                                    data-id="{{ $booking->id }}" 
                                                                     data-link="{{ route('bookings.show', $booking->id) }}">
                                                                     <i class="text-warning ti-file"></i> View</a>
                                                                 <div class="dropdown-divider"></div>
@@ -84,10 +83,10 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <div class="modal fade" id="staticBackdrop" data-backdrop="static"
+                                                <div class="modal fade " id="staticBackdrop" data-backdrop="static"
                                                     data-keyboard="false" tabindex="-1"
                                                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                                    <div class="modal-dialog modal-dialog-scrollable">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="staticBackdropLabel">Bookings
@@ -99,10 +98,10 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <p class="font-weight-bold">DateTime : <span
-                                                                    class="font-weight-normal" id="created-at"></span>
+                                                                        class="font-weight-normal" id="created-at"></span>
                                                                 </p>
                                                                 <p class="font-weight-bold">Booking ID : <span
-                                                                    class="font-weight-normal" id="booking-id"></span>
+                                                                        class="font-weight-normal" id="booking-id"></span>
                                                                 <p class="font-weight-bold">User Name : <span
                                                                         class="font-weight-normal" id="name"></span>
                                                                 </p>
@@ -111,6 +110,11 @@
                                                                 </p>
                                                                 <p class="font-weight-bold">People : <span
                                                                         class="font-weight-normal" id="quantity"></span>
+                                                                <p class="font-weight-bold">Destination Place : <span
+                                                                        class="font-weight-normal" id="place"></span>
+                                                                <p class="font-weight-bold">Vehicle : <span
+                                                                        class="font-weight-normal" id="vehicle"></span>
+                                                                </p>
                                                                 <p class="font-weight-bold">Total : <span
                                                                         class="font-weight-normal" id="total"></span>
                                                                 </p>
@@ -192,13 +196,16 @@
             let dateTime = $(this).closest('tr').find('.date-time').html()
             let link = $(this).attr('data-link')
             $.get(link,function(data){
+                $('#staticBackdrop').modal('show')
                 $('#booking-id').html(data.booking_code)
                 $('#name').html(userName)
+                $('#place').html(data.place.name)
                 $('#package').html(packageName)
                 $('#created-at').html(dateTime)
                 $('#schedule').html(data.schedule)
                 $('#quantity').html(data.quantity)
                 $('#total').html(data.amount)
+                $('#vehicle').html(data.vehicle.model)
                 })
             })
 

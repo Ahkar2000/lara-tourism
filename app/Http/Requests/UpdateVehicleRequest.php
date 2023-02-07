@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBookingRequest extends FormRequest
+class UpdateVehicleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class StoreBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'quantity' => 'required|numeric|min:1',
-            'schedule' => 'required|date_format:Y-m-d|after_or_equal:'. date(DATE_ATOM),
-            'package_id' => 'required|exists:packages,id',
-            'place_id' => 'required|exists:places,id',
-            'vehicle_id' => 'required|exists:vehicles,id'
+            'new_model' => 'required|min:3',
+            'new_driver' => 'required|min:3',
+            'new_seat' => 'required|min:1|numeric',
+            'new_status' => 'required',
+            'new_price' => 'required|numeric|min:1'
         ];
     }
 }

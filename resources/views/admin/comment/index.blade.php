@@ -9,10 +9,10 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title pr d-flex justify-content-between align-items-center">
-                                <h3 class=" font-weight-bold">Comments</h3>
+                                <h3 class=" font-weight-bold">Reviews</h3>
                                 <form action="{{ route('comments.index') }}" method="GET" class="d-inline-block">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Search Comment" aria-describedby="button-addon1" value="{{ request('search') }}" name="search">
+                                        <input type="text" class="form-control" placeholder="Search Review" aria-describedby="button-addon1" value="{{ request('search') }}" name="search">
                                         <div class="input-group-prepend">
                                           <button class="btn border" type="button" id="button-addon1"><i class="ti-search"></i></button>
                                         </div>
@@ -27,7 +27,7 @@
                                                 <th>#</th>
                                                 <th>User Name</th>
                                                 <th>Package Name</th>
-                                                <th>Comment</th>
+                                                <th>Review</th>
                                                 <th>DateTime</th>
                                                 <th>Action</th>
                                             </tr>
@@ -99,7 +99,7 @@
                                 </p>
                                 <p class="font-weight-bold">DateTime : <span class="font-weight-normal"
                                         id="created-at"></span></p>
-                                <p class="font-weight-bold">Comment</p>
+                                <p class="font-weight-bold">Review</p>
                                 <p class="font-weight-normal" id="comment"></p>
                             </div>
                             <div class="modal-footer">
@@ -120,7 +120,7 @@
             $('#idelete').on("click",function(e){
                 e.preventDefault()
                 Swal.fire({
-                title: 'Are you sure to delete this comment?',
+                title: 'Are you sure to delete this review?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

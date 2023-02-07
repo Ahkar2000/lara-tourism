@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Booking;
 use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class BookingPolicy
+class VehiclePolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class BookingPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Booking  $booking
+     * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Booking $booking)
+    public function view(User $user, Vehicle $vehicle)
     {
-        return $user->id === $booking->user_id;
+        //
     }
 
     /**
@@ -48,34 +48,34 @@ class BookingPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Booking  $booking
+     * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Booking $booking)
+    public function update(User $user, Vehicle $vehicle)
     {
-        return $user->id === $booking->user_id;
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Booking  $booking
+     * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Booking $booking)
+    public function delete(User $user, Vehicle $vehicle)
     {
-        return $user->id === $booking->user_id;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Booking  $booking
+     * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Booking $booking)
+    public function restore(User $user, Vehicle $vehicle)
     {
         //
     }
@@ -84,10 +84,10 @@ class BookingPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Booking  $booking
+     * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Booking $booking)
+    public function forceDelete(User $user, Vehicle $vehicle)
     {
         //
     }

@@ -66,28 +66,31 @@
                                                                     <ul class="dropdown-menu">
                                                                         <li><a class="dropdown-item" data-bs-toggle="modal"
                                                                                 data-bs-target="#voucher{{ $key }}">
-                                                                                <i class="bi bi-file-earmark text-info"></i> View</a>
+                                                                                <i class="bi bi-file-earmark text-info"></i>
+                                                                                View</a>
                                                                         </li>
                                                                         <li>
                                                                             <hr class="dropdown-divider">
                                                                         </li>
-                                                                        <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                                                data-bs-target="#exampleModal{{ $key }}">
-                                                                                <i class="bi bi-pencil-square text-warning"></i> Edit</a>
+                                                                        <li><a href="{{ route('bookingShow',$booking->id) }}" class="dropdown-item edit-btn" data-link="{{ route('bookUpdate',$booking->id) }}">
+                                                                                <i
+                                                                                    class="bi bi-pencil-square text-warning "></i>
+                                                                                Edit</a>
                                                                         </li>
                                                                         <li>
                                                                             <hr class="dropdown-divider">
                                                                         </li>
                                                                         <li><a class="dropdown-item cancel-btn"
                                                                                 href="{{ route('bookCancel', $booking->id) }}">
-                                                                                <i class="bi bi-x-square text-danger"></i> Cancel</a>
+                                                                                <i class="bi bi-x-square text-danger"></i>
+                                                                                Cancel</a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
 
-                                                                <div class="modal fade rounded-0" id="voucher{{$key}}"
-                                                                    tabindex="-1" aria-labelledby="voucher-modal"
-                                                                    aria-hidden="true">
+                                                                <div class="modal fade rounded-0"
+                                                                    id="voucher{{ $key }}" tabindex="-1"
+                                                                    aria-labelledby="voucher-modal" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-centered">
                                                                         <div class="modal-content rounded-0">
                                                                             <div class="modal-header">
@@ -100,19 +103,30 @@
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <div class="ms-2">
-                                                                                    <span class=" fw-bolder me-3">Booking ID:</span>
+                                                                                    <span class=" fw-bolder me-3">Booking
+                                                                                        ID:</span>
                                                                                     <span>{{ $booking->booking_code }}</span>
                                                                                 </div>
                                                                                 <div class="ms-2">
-                                                                                    <span class=" fw-bolder me-3">DateTime:</span>
+                                                                                    <span
+                                                                                        class=" fw-bolder me-3">DateTime:</span>
                                                                                     <span>{{ $booking->created_at }}</span>
                                                                                 </div>
                                                                                 <div class="ms-2">
-                                                                                    <span class=" fw-bolder me-3">Destination Place:</span>
+                                                                                    <span
+                                                                                        class=" fw-bolder me-3">Destination
+                                                                                        Place:</span>
                                                                                     <span>{{ $booking->place->name }}</span>
                                                                                 </div>
                                                                                 <div class="ms-2">
-                                                                                    <span class=" fw-bolder me-3">UserName:</span>
+                                                                                    <span
+                                                                                        class=" fw-bolder me-3">Vehicle:</span>
+                                                                                    <span
+                                                                                        class="vehicle-model">{{ $booking->vehicle->model }}</span>
+                                                                                </div>
+                                                                                <div class="ms-2">
+                                                                                    <span
+                                                                                        class=" fw-bolder me-3">UserName:</span>
                                                                                     <span>{{ Auth::user()->name }}</span>
                                                                                 </div>
                                                                                 <table class="table">
@@ -125,72 +139,29 @@
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <tr>
-                                                                                            <td>{{ $booking->package->name }}</td>
-                                                                                            <td class="text-nowrap">{{ $booking->schedule }}</td>
-                                                                                            <td>{{ $booking->quantity }}</td>
-                                                                                            <td>{{ $booking->package->price }}</td>
+                                                                                            <td>{{ $booking->package->name }}
+                                                                                            </td>
+                                                                                            <td class="text-nowrap">
+                                                                                                {{ $booking->schedule }}
+                                                                                            </td>
+                                                                                            <td>{{ $booking->quantity }}
+                                                                                            </td>
+                                                                                            <td>{{ $booking->package->price }}
+                                                                                            </td>
                                                                                             <td>{{ $booking->amount }}</td>
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td colspan="4">
-                                                                                                <span class=" fw-bolder">Total</span>
+                                                                                                <span
+                                                                                                    class=" fw-bolder">Total</span>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <span class=" fw-bolder">{{ $booking->amount }}</span>
+                                                                                                <span
+                                                                                                    class=" fw-bolder">{{ $booking->amount }}</span>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal fade rounded-0"
-                                                                    id="exampleModal{{ $key }}" tabindex="-1"
-                                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content rounded-0">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5"
-                                                                                    id="exampleModalLabel">Book Now</h1>
-                                                                                <button type="button"
-                                                                                    class="btn-close rounded-0"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form id="book-form{{ $key }}"
-                                                                                    action="{{ route('bookUpdate', $booking->id) }}"
-                                                                                    method="POST" class="book">
-                                                                                    @csrf
-                                                                                    @method('put')
-                                                                                    <input type="hidden" name="package_id"
-                                                                                        value="{{ $booking->package_id }}">
-                                                                                    <div class="mb-3">
-                                                                                        <label class="form-label">Number of
-                                                                                            People</label>
-                                                                                        <input type="number"
-                                                                                            name="quantity"
-                                                                                            class="form-control"
-                                                                                            id="qty"
-                                                                                            value="{{ $booking->quantity }}">
-                                                                                    </div>
-                                                                                    <div class="my-3">
-                                                                                        <label class="form-label">Booking
-                                                                                            Date</label>
-                                                                                        <input type="date" min="{{ now()->format('Y-m-d') }}"
-                                                                                            name="schedule"
-                                                                                            class="form-control"
-                                                                                            id="schedule"
-                                                                                            value="{{ $booking->schedule }}">
-                                                                                    </div>
-                                                                                    <hr>
-                                                                                    <div class="text-end mt-3">
-                                                                                        <button
-                                                                                            style="border: none!important;"
-                                                                                            class="btn-custom1">Update</button>
-                                                                                    </div>
-                                                                                </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -221,7 +192,87 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+                    </div>
+                    <div class="modal fade rounded-0" id="update-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content rounded-0">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Book Now</h1>
+                                    <button type="button" class="btn-close rounded-0" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="update-book-form" action="" method="POST" class="book">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="package_id" id="package">
+                                        <div class="mb-3">
+                                            <label class="form-label">Number of
+                                                People</label>
+                                            <input type="number" name="quantity" class="form-control" id="qty">
+                                        </div>
+                                        <div class="my-3">
+                                            <label class="form-label">Booking
+                                                Date</label>
+                                            <input type="date" min="{{ now()->format('Y-m-d') }}" name="schedule"
+                                                class="form-control" id="schedule">
+                                        </div>
+                                        <div class="mt-3">
+                                            <label class="form-label">Where
+                                                should we pick you up?</label>
+                                            <select name="place_id" class="form-control" id="place">
+                                                @forelse ($places as $place)
+                                                    <option value="{{ $place->id }}" class="text-capitalize">
+                                                        {{ $place->name }}
+                                                    </option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                        <div class="row">
+                                            <div class="my-3 col-6">
+                                                <label class="form-label">Choose a
+                                                    vehicle</label>
+                                                <select name="vehicle_id" class="form-control"
+                                                    id="vehicle" required>
+                                                    <option disabled selected>
+                                                        Choose a vehicle
+                                                    </option>
+                                                    @forelse ($vehicles as $vehicle)
+                                                        @if ($vehicle->status == 1)
+                                                            <option data-price="{{ $vehicle->price }}"
+                                                                data-seat="{{ $vehicle->seat }}"
+                                                                value="{{ $vehicle->id }}" class="text-capitalize">
+                                                                {{ $vehicle->model }}
+                                                                ({{ $vehicle->seat }}
+                                                                seats)
+                                                            </option>
+                                                        @endif
+                                                    @empty
+                                                        <option class="text-capitalize">
+                                                            Not Avaliable
+                                                        </option>
+                                                    @endforelse
+                                                </select>
+
+                                            </div>
+                                            <div class="my-3 col-6">
+                                                <label class="form-label">Vehicle's
+                                                    Price</label>
+                                                <input type="number" disabled class="form-control v-price"
+                                                    value="">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="text-end mt-3">
+                                            <button style="border: none!important;" class="btn-custom1" type="submit">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -282,6 +333,48 @@
                     }
                 })
             })
+
+            //function for selected value
+            $('#vehicle').on('change',function () {
+                var i = $('#vehicle option:selected').attr('data-price');
+                $('.v-price').val(i)
+            })
+
+            //function for seat 
+            function filtering(){
+                let seatNo = $('#qty').val()
+                if(seatNo > Number($('#vehicle option:selected').attr('data-seat'))){
+                    $('#vehicle').val('')
+                    $('.v-price').val('')
+                }
+                $('#vehicle > option').each(function(a) {
+                    if (seatNo > Number($(this).attr('data-seat'))) {
+                        $(this).attr('hidden', 'hidden')
+                    } else {
+                        $(this).removeAttr('hidden')
+                    }
+                });
+            }
+            $('#qty').on('change',function () {
+                filtering()
+            })
+
+            $('.edit-btn').on('click',function(e){
+                e.preventDefault()
+                let dataLink = $(this).attr('data-link')
+                $.get($(this).attr('href'),function(data){
+                    $('#qty').val(data.quantity)
+                    $('#update-modal').modal('show')
+                    filtering()
+                    $('#package').val(data.package_id)
+                    $('#schedule').val(data.schedule)
+                    $('.v-price').val(data.vehicle.price)
+                    $('#place').val(data.place_id)
+                    $('#vehicle').val(data.vehicle_id)
+                    $('#update-book-form').attr('action',dataLink)
+                })
+            })
+
 
             // $('.book').on('submit',function(e){
             //     e.preventDefault()

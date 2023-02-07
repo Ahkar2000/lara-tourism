@@ -183,8 +183,7 @@ class PackageController extends Controller
         return to_route('packages.index')->with('message','Package is deleted successfully');
     }
     public function userShow(Package $package){
-        $places = Place::latest('id')->get();
-        return view('package.show',compact('package','places'));
+        return view('package.show',compact('package'));
     }
     public function showPackages(){
         $packages = Package::when(request('search'),function($query){

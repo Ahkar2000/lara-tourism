@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Place;
+use App\Models\Vehicle;
 
 class PageController extends Controller
 {
@@ -18,8 +20,10 @@ class PageController extends Controller
         return view('welcome',compact('packages'));
     }
     public function profile(){
+        $places = Place::latest('id')->get();
+        $vehicles = Vehicle::latest('id')->get();
         $bookings = Booking::where('user_id',Auth::id())->with('package')->latest('id')->paginate(10);
-        return view('profile.index',compact('bookings'));
+        return view('profile.index',compact('bookings','places','vehicles'));
     }
     public function setting(){
         return view('profile.setting');

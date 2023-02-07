@@ -36,9 +36,9 @@
                                         </div>
                                     </div>
                                     <hr class="border-danger">
-                                    <div class="box text-start d-flex align-content-center justify-content-between"
+                                    <div class="box text-start d-flex align-items-center justify-content-between"
                                         style="box-shadow: none;">
-                                        <div class="btn-custom2"><i class="bi bi-tag-fill me-1"></i>{{ $package->price }}
+                                        <div class="text-danger"><i class="bi bi-tag-fill me-1"></i>{{ $package->price }}
                                         </div>
                                         <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             class="btn-custom1">Book Now</a>
@@ -47,7 +47,8 @@
                                 <div class="col-lg-7">
                                     <h4 class="fw-bold mb-0">{{ $package->name }}</h4>
                                     <hr class="border-danger">
-                                    <span class="badge text-bg-info text-capitalize rounded-0">{{ $package->category->name }}</span>
+                                    <span
+                                        class="badge text-bg-info text-capitalize rounded-0">{{ $package->category->name }}</span>
                                     <br>
                                     <small class="fw-light mb-0">Location : {{ $package->location }}</small>
                                     <h4 class="fw-bold">Description</h4>
@@ -69,21 +70,49 @@
                                                     <input type="hidden" name="package_id" value="{{ $package->id }}">
                                                     <div class="mb-3">
                                                         <label class="form-label">Number of People</label>
-                                                        <input type="number" min="1" max="50" name="quantity" class="form-control">
+                                                        <input type="number" min="1" max="50" name="quantity"
+                                                            class="form-control seat">
                                                     </div>
                                                     <div class="my-3">
                                                         <label class="form-label">Booking Date</label>
-                                                        <input type="date" min="{{ now ()->format ('Y-m-d') }}" name="schedule" class="form-control">
+                                                        <input type="date" min="{{ now()->format('Y-m-d') }}"
+                                                            name="schedule" class="form-control">
                                                     </div>
-                                                    <div class="my-3">
+                                                    <div class="mt-3">
                                                         <label class="form-label">Where should we pick you up?</label>
                                                         <select name="place_id" class="form-control">
                                                             @forelse ($places as $place)
-                                                                <option value="{{ $place->id }}" class="text-capitalize">{{ $place->name }}</option>
+                                                                <option value="{{ $place->id }}"
+                                                                    class="text-capitalize">{{ $place->name }}</option>
                                                             @empty
-                                                                
                                                             @endforelse
                                                         </select>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="my-3 col-6">
+                                                            <label class="form-label">Choose a vehicle</label>
+                                                            <select name="vehicle_id"
+                                                                class="form-control" id="vehicle" required>
+                                                                <option disabled selected>Choose a vehicle</option>
+                                                                @forelse ($vehicles as $vehicle)
+                                                                    @if ($vehicle->status == 1)
+                                                                        <option data-price="{{ $vehicle->price }}"
+                                                                            data-seat="{{ $vehicle->seat }}"
+                                                                            value="{{ $vehicle->id }}"
+                                                                            class="text-capitalize">{{ $vehicle->model }}
+                                                                            ( {{ $vehicle->seat }} seats )</option>
+                                                                    @endif
+                                                                @empty
+                                                                    <option class="text-capitalize">Not Avaliable</option>
+                                                                @endforelse
+                                                            </select>
+
+                                                        </div>
+                                                        <div class="my-3 col-6">
+                                                            <label class="form-label">Vehicle's Price</label>
+                                                            <input type="number" disabled class="form-control v-price"
+                                                                value="">
+                                                        </div>
                                                     </div>
                                                     <hr>
                                                     @auth
@@ -125,13 +154,17 @@
                                                 <span class=" fw-bolder me-3">Destination Place:</span>
                                                 <span class="place"></span>
                                             </div>
-                                            @auth
                                             <div class="ms-2">
-                                                <span class=" fw-bolder me-3">UserName:</span>
-                                                <span>{{ Auth::user()->name }}</span>
+                                                <span class=" fw-bolder me-3">Vehicle:</span>
+                                                <span class="vehicle-model"></span>
                                             </div>
+                                            @auth
+                                                <div class="ms-2">
+                                                    <span class=" fw-bolder me-3">UserName:</span>
+                                                    <span>{{ Auth::user()->name }}</span>
+                                                </div>
                                             @endauth
-                                            
+
                                             <table class="table">
                                                 <thead>
                                                     <th>Package Name</th>
@@ -163,7 +196,7 @@
                                 </div>
                             </div>
                             <hr class="border-danger">
-                            <h4 class="fw-bold mb-2">Comments ( <span
+                            <h4 class="fw-bold mb-2">Reviews ( <span
                                     id="total-comments">{{ $package->comments->count() }}</span> )</h4>
                             <div class="comment-container">
 
@@ -172,7 +205,7 @@
                                 <div class="text-center" id="cload">
                                     <p>
                                         <a id="load-more" href="" class="text-dark">
-                                            <i class="bi bi-arrow-clockwise"></i> Load more comments
+                                            <i class="bi bi-arrow-clockwise"></i> Load more reviews
                                         </a>
                                     </p>
                                 </div>
@@ -199,7 +232,7 @@
                                 @else
                                     <p>
                                         Please <a href="{{ route('login') }}">Login</a> or <a
-                                            href="{{ route('register') }}">Register</a> to comment.
+                                            href="{{ route('register') }}">Register</a> to give a review.
                                     </p>
                                 @endauth
                             </div>
@@ -243,6 +276,7 @@
                 `)
                 let input = $(this).serialize()
                 $.post($(this).attr('action'), input, function(data) {
+                    $('#button-addon2').prop('disabled', true);
                     $('#total-comments').html('{{ $package->comments->count() + 1 }}')
                     $('.send-btn').html(`
                         <i class="bi bi-send"></i>
@@ -267,24 +301,46 @@
         $('#book-form').on('submit', function(e) {
             e.preventDefault()
             let input = $(this).serialize()
-            console.log(input)
             $.post($(this).attr('action'), input, function(data) {
                 $('#book-form')[0].reset()
                 $('.modal').modal('hide')
                 $('#voucher').modal('show')
                 $('.booking-id').html(data[0].booking_code)
-                $('.place').html(data[2].name)
+                $('.place').html(data[2])
                 $('.schedule').html(data[0].schedule)
                 $('.booking-date').html(moment(new Date(data[0].created_at)).format('YYYY-MM-DD HH:m:s'))
                 $('.package').html(data[1].name)
                 $('.people').html(data[0].quantity)
                 $('.price').html(data[1].price)
                 $('.amount').html(data[0].amount)
+                $('.vehicle-model').html(data[3])
                 $('.total-amount').html(data[0].amount)
             })
         })
 
         //end
+
+        //function for selected value
+        $('#vehicle').on('change', function() {
+            var i = $('#vehicle option:selected').attr('data-price');
+            $('.v-price').val(i)
+        })
+
+        //function for seat 
+        $('.seat').on('change', function() {
+            let seatNo = $('.seat').val()
+            if(seatNo > Number($('#vehicle option:selected').attr('data-seat'))){
+                $('#vehicle').val('')
+                $('.v-price').val('')
+            }
+            $('#vehicle > option').each(function(a) {
+                if (seatNo > Number($(this).attr('data-seat'))) {
+                    $(this).attr('hidden', 'hidden')
+                } else {
+                    $(this).removeAttr('hidden')
+                }
+            });
+        })
 
         //venobox start
         $('.venobox').venobox();
@@ -322,7 +378,6 @@
         function fetchData() {
             $.get('{{ route('showRelatedComments', $package->id) }}', function(d) {
                 $.each(d.data, function(a, b) {
-                    console.log(b)
                     $('.comment-container').append(
                         `
                         <div class="border rounded-0 p-3 mb-3">

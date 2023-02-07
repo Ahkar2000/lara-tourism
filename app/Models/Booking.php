@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
+    protected $with = ['place','vehicle','package'];
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -16,5 +17,8 @@ class Booking extends Model
     }
     public function place(){
         return $this->belongsTo(Place::class);
+    }
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
     }
 }
