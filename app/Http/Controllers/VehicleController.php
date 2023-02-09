@@ -17,7 +17,7 @@ class VehicleController extends Controller
     {
         $vehicles = Vehicle::when(request('search'),function($query){
             $search = request('search');
-            $query->where('name','like',"%$search%")->orWhere('diver','like',"%$search%")
+            $query->where('model','like',"%$search%")->orWhere('driver','like',"%$search%")
             ->orWhere('price','like',"%$search%");
         })
         ->latest('id')->paginate(10)->withQueryString();

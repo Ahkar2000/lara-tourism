@@ -137,6 +137,7 @@ class BookingController extends Controller
         if (Gate::denies('update', $booking)) {
             return abort(403, "You are not allowed to update.");
         }
+        $vehicle = Vehicle::findOrFail($request->vehicle_id);
         $package = Package::findOrFail($booking->package_id);
         $request->validate([
             'package_id' => 'required|exists:packages,id',
@@ -145,19 +146,11 @@ class BookingController extends Controller
             'place_id' => 'nullable|exists:places,id',
             'vehicle_id' => 'nullable|exists:vehicles,id'
         ]);
-        if($request->has('quantity')){
-            $booking->quantity = $request->quantity;
-            $booking->amount = $request->quantity * $package->price;
-        }
-        if($request->has('schedule')){
-            $booking->schedule = $request->schedule;
-        }
-        if($request->has('place')){
-            $booking->place_id = $request->place;
-        }
-        if($request->has('vehicle_id')){
-            $booking->vehicle_id = $request->vehicle_id;
-        }
+        $booking->quantity = $request->quantity;
+        $booking->amount = $vehicle->price + $package->price;
+        $booking->schedule = $request->schedule;
+        $booking->place_id = $request->place;
+        $booking->vehicle_id = $request->vehicle_id;
         $booking->update();
         return back()->with('message','Your Booking is updated successfully.');
     }
