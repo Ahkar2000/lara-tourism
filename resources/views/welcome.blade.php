@@ -185,7 +185,10 @@
                                 <div>
                                     <img src="{{ asset('storage/500/'.$package->photos->first()->name) }}" class="w-100">
                                 </div>
-                                <h3 class="mx-2">{{ $package->name }}</h3>
+                                <h3 class="mx-2 mb-0">{{ $package->name }}</h3>
+                                <p class="text-danger mx-4 mb-1 fw-bold">
+                                    <i class="bi bi-tag-fill me-1"></i>{{ $package->price }}
+                                </p>
                                 <p class="mx-4 fst-italic">
                                     {{ Str::limit($package->description, 100, '...') }}
                                 </p>

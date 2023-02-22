@@ -36,7 +36,7 @@
                                         </div>
                                         <form action="{{ route('showPackages') }}" method="GET">
                                             <div class="input-group">
-                                                <input value="{{ request('search') }}" type="text" class="form-control rounded-0" name="search"
+                                                <input value="{{ request('search') }}" type="text" class="form-control rounded-0 border-danger" name="search"
                                                     placeholder="Search Package" aria-label="Search Package"
                                                     aria-describedby="button-addon2">
                                                 <button class="btn btn-outline-danger rounded-0" type="submit"

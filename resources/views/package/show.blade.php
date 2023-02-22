@@ -135,7 +135,7 @@
                             <div class="modal fade rounded-0" id="voucher" tabindex="-1"
                                 aria-labelledby="voucher-modal" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content rounded-0">
+                                    <div class="modal-content rounded-0 w-auto">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="voucher-modal">Booking Voucher</h1>
                                             <button type="button" class="btn-close rounded-0" data-bs-dismiss="modal"
@@ -171,6 +171,7 @@
                                                     <th>Schedule</th>
                                                     <th>People</th>
                                                     <th>Price</th>
+                                                    <th>Vehicle's Price</th>
                                                     <th>Amount</th>
                                                 </thead>
                                                 <tbody>
@@ -179,10 +180,11 @@
                                                         <td class="text-nowrap schedule"></td>
                                                         <td class="people"></td>
                                                         <td class="price"></td>
+                                                        <td class="v-price"></td>
                                                         <td class="amount"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4">
+                                                        <td colspan="5">
                                                             <span class=" fw-bolder total">Total</span>
                                                         </td>
                                                         <td>
@@ -307,6 +309,7 @@
                 $('#voucher').modal('show')
                 $('.booking-id').html(data[0].booking_code)
                 $('.place').html(data[2])
+                $('.v-price').html(data[4])
                 $('.schedule').html(data[0].schedule)
                 $('.booking-date').html(moment(new Date(data[0].created_at)).format('YYYY-MM-DD HH:m:s'))
                 $('.package').html(data[1].name)

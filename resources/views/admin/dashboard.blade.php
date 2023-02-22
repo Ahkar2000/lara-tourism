@@ -97,9 +97,19 @@
     (function ($) {
         "use strict";
 
+        var pieLabel = JSON.parse(`<?php echo $data2; ?>`)
+        var pieData = JSON.parse(`<?php echo $data3; ?>`)
+
+        for(let i=0; i<pieData.length; i++){
+            if(pieData[i] == 0){
+                pieData.splice(i,1)
+                pieLabel.splice(i,1)
+            }
+        }
+
         var data = {
-            labels: JSON.parse(`<?php echo $data3; ?>`),
-            series: JSON.parse(`<?php echo $data2; ?>`)
+            labels: pieLabel,
+            series: pieData
         };
 
         var options = {
@@ -125,7 +135,7 @@
 
         new Chartist.Pie('.ct-pie-chart', data, options, responsiveOptions);
 
-        var data = {
+        var data2 = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             series: [
                 JSON.parse(`<?php echo $data; ?>`),
@@ -147,8 +157,7 @@
     }]
     ];
 
-    new Chartist.Bar('.ct-bar-chart', data, options, responsiveOptions);
-
+    new Chartist.Bar('.ct-bar-chart', data2, options, responsiveOptions);
 
 
 

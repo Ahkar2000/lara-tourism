@@ -39,19 +39,6 @@ class DashboardController extends Controller
         }
         $data = json_encode($bookingArr);
 
-        //for pie chart
-        $perPackageArr = [];
-        $perPackages = Booking::select(
-            DB::raw("(COUNT(*)) as count"),
-            DB::raw("package_id as package")
-        )
-        ->groupBy('package_id')
-        ->get();
-        foreach($perPackages as $p){
-            $perPackageArr[$p->package-1] = $p->count;
-        }
-        $data2 = json_encode($perPackageArr);
-
         //package
         $packageArr = [];
         $packageTotal = 0;
@@ -63,7 +50,21 @@ class DashboardController extends Controller
             $packageArr[$packageTotal] = $package->package_name;
             $packageTotal++;
         }
-        $data3 = json_encode($packageArr);
+        $data2 = json_encode($packageArr);
+
+         //for pie chart
+        $perPackageArr = [];
+        for($i=0; $i<$packageTotal; $i++){
+            $perPackageArr[$i] = 0;
+        }
+         $perPackages = Booking::groupBy('package_id')
+         ->selectRaw('count(*) as total, package_id')
+         ->get();
+         $i=0;
+         foreach($perPackages as $p){
+             $perPackageArr[$p->package_id-1] = $p->total;
+         }
+         $data3 = json_encode($perPackageArr);
 
         return view('admin.dashboard',compact('data','total','data2','packageTotal','data3'));
     }

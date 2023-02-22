@@ -3,7 +3,7 @@
         <div class="nano-content">
             <ul>
                 <div class="logo"><a href="{{ route('admin.dashboard') }}">
-                        <!-- <img src="images/logo.png" alt="" /> --><span>Miki TSM</span>
+                    <img class="w-25" src="{{ url('userdashboard/assets/img/logo.png') }}" style="vertical-align: bottom;"><span>Miki TSM</span>
                     </a></div>
                 <li class="label">Main</li>
                 <li><a href="{{ route('admin.dashboard') }}"><i class="ti-home"></i> Dashboard </a></li>

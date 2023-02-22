@@ -92,7 +92,7 @@
                                                                     id="voucher{{ $key }}" tabindex="-1"
                                                                     aria-labelledby="voucher-modal" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content rounded-0">
+                                                                        <div class="modal-content rounded-0 w-auto">
                                                                             <div class="modal-header">
                                                                                 <h1 class="modal-title fs-5"
                                                                                     id="voucher-modal">Booking Voucher</h1>
@@ -135,6 +135,7 @@
                                                                                         <th>Schedule</th>
                                                                                         <th>People</th>
                                                                                         <th>Price</th>
+                                                                                        <th>Vehicle's Price</th>
                                                                                         <th>Amount</th>
                                                                                     </thead>
                                                                                     <tbody>
@@ -148,10 +149,13 @@
                                                                                             </td>
                                                                                             <td>{{ $booking->package->price }}
                                                                                             </td>
+                                                                                            <td>
+                                                                                                {{ $booking->vehicle->price }}
+                                                                                            </td>
                                                                                             <td>{{ $booking->amount }}</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td colspan="4">
+                                                                                            <td colspan="5">
                                                                                                 <span
                                                                                                     class=" fw-bolder">Total</span>
                                                                                             </td>
@@ -363,6 +367,7 @@
                 e.preventDefault()
                 let dataLink = $(this).attr('data-link')
                 $.get($(this).attr('href'),function(data){
+                    console.log(data.place_id)
                     $('#qty').val(data.quantity)
                     $('#update-modal').modal('show')
                     filtering()
