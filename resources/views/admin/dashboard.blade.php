@@ -66,7 +66,7 @@
                             </div>
                             <div class="card-body">
                                 {{-- <div class="ct-bar-chart m-t-30"></div> --}}
-                                <canvas id="areaChart" style="width:100%"></canvas>
+                                <canvas id="areaChart" height="190px"></canvas>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             </div>
                             <div class="card-body">
                                 {{-- <div class="ct-pie-chart"></div> --}}
-                                <canvas id="pieChart" ></canvas>
+                                <canvas id="pieChart" height="190px"></canvas>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
     });
 
     var pieLabel = JSON.parse(`<?php echo $data2; ?>`)
-        var pieData = JSON.parse(`<?php echo $data3; ?>`)
+    var pieData = JSON.parse(`<?php echo $data3; ?>`)
 
         for(let i=0; i<pieData.length; i++){
             if(pieData[i] == 0){
