@@ -30,46 +30,39 @@ class DashboardController extends Controller
         
         $total = 0;
         $bookingArr = [];
-        for($i=0; $i<12; $i++){
-            $bookingArr[$i] = 0;
-        }
+        $bookingArr = array_fill(0,12,0);
         foreach($bookings as $booking){
             $total += $booking->count;
             $bookingArr[$booking->month_name-1] = $booking->count;
         }
         $data = json_encode($bookingArr);
 
+        //package
+        $packageArr = [];
+        $packageTotal = 0;
+        $packages = Package::select(
+            DB::raw("name as package_name")
+        )->get();
+
+        foreach($packages as $package){
+            $packageArr[$packageTotal] = $package->package_name;
+            $packageTotal++;
+        }
+        $data2 = json_encode($packageArr);
+
          //for pie chart
         $perPackageArr = [];
-         $pIndex = [];
+        for($i=0; $i<$packageTotal; $i++){
+            $perPackageArr[$i] = 0;
+        }
          $perPackages = Booking::groupBy('package_id')
          ->selectRaw('count(*) as total, package_id')
          ->get();
          $i=0;
          foreach($perPackages as $p){
-             $perPackageArr[$i] = $p->total;
-             $pIndex[$i] = $p->package_id;
-             $i++;
+             $perPackageArr[$p->package_id-1] = $p->total;
          }
          $data3 = json_encode($perPackageArr);
-
-         //package
-        $packageArr = [];
-        $packageTotal = 0;
-        $packages = Package::select(
-            DB::raw("name as package_name"),
-            DB::raw("id as package_id")
-        )->get();
-
-        foreach($packages as $package){
-            foreach($pIndex as $k=>$index){
-               if($package->package_id == $index[$k]){
-                  $packageArr[$packageTotal] = $package->package_name;
-               }
-            }
-            $packageTotal++;
-        }
-        $data2 = json_encode($packageArr);
 
         return view('admin.dashboard',compact('data','total','data2','packageTotal','data3'));
     }
