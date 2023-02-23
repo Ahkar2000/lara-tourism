@@ -120,13 +120,6 @@
     var pieLabel = JSON.parse(`<?php echo $data2; ?>`)
     var pieData = JSON.parse(`<?php echo $data3; ?>`)
 
-        for(let i=0; i<pieData.length; i++){
-            if(pieData[i] == 0){
-                pieData.splice(i,1)
-                pieLabel.splice(i,1)
-            }
-        }
-
     var barColorsPie = ["#b91d47","#c3a5b4","#00aba9","#2b5797","#e8c3b9","#1e7145","#201923","#2f2aa0","#b732cc","#632819","#772b9d","#5d4c86"];
 
     new Chart("pieChart", {
